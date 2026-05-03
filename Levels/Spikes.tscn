@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://btiu6ii2ay1l0"]
+
+[ext_resource type="Script" uid="uid://1qrbiegvw044" path="res://Spikes.cs" id="1_e00da"]
+[ext_resource type="Texture2D" uid="uid://bcyok3j0bumul" path="res://Art/spikes.png" id="2_14pmv"]
+[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/DamageSource.cs" id="3_14pmv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2sk"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k2k6"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rl1p"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ok6jj"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_facbu"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1qrp"]
+atlas = ExtResource("2_14pmv")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_come4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htxhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq2sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k2k6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rl1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ok6jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_facbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1qrp")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e00da"]
+size = Vector2(6, 26)
+
+[node name="Spikes" type="Node2D" unique_id=719692759 node_paths=PackedStringArray("animatedSprite", "damageSource")]
+script = ExtResource("1_e00da")
+PhaseOffset = 3.5
+animatedSprite = NodePath("AnimatedSprite2D")
+damageSource = NodePath("Area2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1195024720]
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_come4")
+frame = 6
+frame_progress = 1.0
+speed_scale = 10.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1054000549]
+collision_layer = 128
+script = ExtResource("3_14pmv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=955567104]
+position = Vector2(-13, 0)
+shape = SubResource("RectangleShape2D_e00da")

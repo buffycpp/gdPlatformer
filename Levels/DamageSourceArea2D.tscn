@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bjlymjtjllpeu"]
+
+[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/DamageSource.cs" id="1_nit0s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vivmo"]
+
+[node name="DamageSourceArea2D" type="Area2D" unique_id=821995518]
+script = ExtResource("1_nit0s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1962706715]
+shape = SubResource("RectangleShape2D_vivmo")
