@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://btiu6ii2ay1l0"]
 
-[ext_resource type="Script" uid="uid://1qrbiegvw044" path="res://Spikes.cs" id="1_e00da"]
+[ext_resource type="Script" uid="uid://1qrbiegvw044" path="res://Levels/Environment/Spikes.cs" id="1_e00da"]
 [ext_resource type="Texture2D" uid="uid://bcyok3j0bumul" path="res://Art/spikes.png" id="2_14pmv"]
-[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/DamageSource.cs" id="3_14pmv"]
+[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/Environment/DamageSource.cs" id="3_14pmv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
 atlas = ExtResource("2_14pmv")

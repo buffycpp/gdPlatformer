@@ -1,12 +1,13 @@
 using Godot;
 using System;
 
-public partial class DamageSource : Area2D
+public partial class LevelCompleteTrigger : Area2D
 {
 	private CollisionShape2D _collisionShape;
 
 	public override void _Ready()
 	{
+		GameController.Instance.StartLevelEvent += OnStartLevel;
 		_collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
 
 		if (_collisionShape == null)
@@ -15,20 +16,27 @@ public partial class DamageSource : Area2D
 			return;
 		}
 
+		_collisionShape.Disabled = true;
+
 		BodyEntered += OnBodyEntered;
+	}
+
+	private void OnStartLevel()
+	{
+		_collisionShape.Disabled = false;
 	}
 
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body.IsInGroup("Player"))
 		{
-			GameController.Instance.HandleDamage(this);
+			GameController.Instance.SignalLevelComplete();
 		}
 	}
 
-	public void Toggle(bool state)
+	public override void _ExitTree()
 	{
-		if (_collisionShape != null)
-			_collisionShape.Disabled = !state;
+		GameController.Instance.StartLevelEvent -= OnStartLevel;
 	}
+
 }

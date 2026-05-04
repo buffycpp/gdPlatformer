@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjlymjtjllpeu"]
 
-[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/DamageSource.cs" id="1_nit0s"]
+[ext_resource type="Script" uid="uid://c2lgva7okp34o" path="res://Levels/Environment/DamageSource.cs" id="1_nit0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vivmo"]
 

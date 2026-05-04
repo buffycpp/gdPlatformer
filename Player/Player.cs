@@ -19,40 +19,32 @@ public partial class Player : CharacterBody2D
 
     // NEW: ground smoothing strength (very small = tight feel)
     [Export] public float GroundSmoothing = 18f;
-	[Export] public AnimatedSprite2D animatedSprite;
+    [Export] public AnimatedSprite2D animatedSprite;
+    [Export] public CollisionShape2D collisionShape2D;
+    [Export] public float AliveTime = 0;
 
     private float _wallJumpLockTimer = 0f;
     private bool _isWallSliding = false;
     private float _lastDeathTime = 0;
     private float _deathTimer = 0;
     public bool IsDead { get; private set; } = false;
+    public bool IsDormant { get; private set; } = false;
 
-    public override void _Ready()
-    {
-        GameController.Instance.PlayerDeathEvent += OnPlayerDeath;
-        GameController.Instance.PlayerSpawnEvent += OnPlayerSpawn;
-    }
+    //Input
+    public float _xInput = 0;
+    public bool _jumpQueued = false;
 
     public override void _PhysicsProcess(double delta)
     {
-
         Vector2 velocity = Velocity;
         float dt = (float)delta;
 
-        if (IsDeathLocked(dt))
+        if (IsDormant || IsDead)
         {
             return;
         }
 
-        if (IsDead)
-        {              
-            if(Input.IsActionJustPressed("jump"))
-            {
-                GameController.Instance.SpawnPlayer();                
-            }
-            
-            return;
-        }
+        AliveTime += dt;
 
         // --------------------
         // GRAVITY
@@ -69,15 +61,13 @@ public partial class Player : CharacterBody2D
         // --------------------
         // INPUT
         // --------------------
-        float input = Input.GetAxis("move_left", "move_right");
-
         bool onFloor = IsOnFloor();
         bool onWall = IsOnWall() && !onFloor;
 
         // --------------------
         // WALL SLIDE
         // --------------------
-        if (onWall && input != 0)
+        if (onWall && _xInput != 0)
         {
             _isWallSliding = true;
             velocity.Y = Mathf.Min(velocity.Y, WallSlideSpeed);
@@ -90,7 +80,7 @@ public partial class Player : CharacterBody2D
         // --------------------
         // HORIZONTAL MOVEMENT
         // --------------------
-        float targetX = input * Speed;
+        float targetX = _xInput * Speed;
 
         if (_wallJumpLockTimer > 0)
         {
@@ -110,7 +100,7 @@ public partial class Player : CharacterBody2D
         // --------------------
         // JUMPING
         // --------------------
-        if (Input.IsActionJustPressed("jump"))
+        if (_jumpQueued)
         {
             if (onFloor)
             {
@@ -126,6 +116,8 @@ public partial class Player : CharacterBody2D
                 _wallJumpLockTimer = WallJumpLockTime;
                 _isWallSliding = false;
             }
+
+            _jumpQueued = false;
         }
 
         // --------------------
@@ -140,64 +132,83 @@ public partial class Player : CharacterBody2D
         // APPLY
         // --------------------
         Velocity = velocity;
-
-		if (velocity.LengthSquared() < 5f)
-		{
-			animatedSprite.Play("idle");
-		}
-		else
-		{
-			if (velocity.Y != 0)
-			{
-				if (velocity.Y < 0)
-				{
-					animatedSprite.Play("jumping");
-				}
-				else if (velocity.Y > 0)
-				{
-					animatedSprite.Play("falling");
-				}			
-			}
-			else
-			{
-				if (velocity.X > 0 || velocity.X < 0)
-				{
-					animatedSprite.Play("run");			
-				}						
-			}
-		}
-
-		animatedSprite.FlipH = velocity.X < 0;
-		animatedSprite.Offset = animatedSprite.FlipH ? new Vector2(4, 0) : Vector2.Zero;
+        UpdateAnimation(velocity);
 
         MoveAndSlide();
     }
 
-    private bool IsDeathLocked(float delta)
+    public void UpdateAnimation(Vector2 velocity)
     {
-        _deathTimer += delta;
-        return _lastDeathTime > 0 && _deathTimer < 1f;
+        if (velocity.LengthSquared() < 5f)
+        {
+            animatedSprite.Play("idle");
+        }
+        else
+        {
+            if (velocity.Y != 0)
+            {
+                if (velocity.Y < 0)
+                {
+                    animatedSprite.Play("jumping");
+                }
+                else if (velocity.Y > 0)
+                {
+                    animatedSprite.Play("falling");
+                }
+            }
+            else
+            {
+                if (velocity.X > 0 || velocity.X < 0)
+                {
+                    animatedSprite.Play("run");
+                }
+            }
+        }
+
+        animatedSprite.FlipH = velocity.X < 0;
+        animatedSprite.Offset = animatedSprite.FlipH ? new Vector2(4, 0) : Vector2.Zero;
     }
 
-    private void OnPlayerDeath()
+    public void SetDormance(bool isDormant)
     {
-        IsDead = true;
-        _deathTimer = 0;
-        _lastDeathTime = GameController.Instance.LevelTime;
-        GameController.Instance.TimeScale = 0;
+        IsDormant = isDormant;
+        collisionShape2D.Disabled = IsDormant;
+    }
+
+    public void QueueJump()
+    {
+        _jumpQueued = true;
+    }
+
+    public void SetXInput(float input)
+    {
+        _xInput = input;
+    }
+
+    public void SetDeath(bool isDead)
+    {
+        IsDead = isDead;
+        AliveTime = 0;
+        if (IsDead)
+        {
+            animatedSprite.Stop();
+        }
+        else
+        {
+            animatedSprite.Play();
+        }
+    }
+
+    public void ResetInput()
+    {
+        _xInput = 0;
+        _jumpQueued = false;
+    }
+
+    public void ForcePosition(Vector2 position)
+    {
         Velocity = Vector2.Zero;
+        UpdateAnimation(Velocity);
+        GlobalPosition = position;
     }
-
-    private void OnPlayerSpawn()
-    {
-        IsDead = false;
-        GlobalPosition = Vector2.Zero;
-        GameController.Instance.TimeScale = 1;
-    }
-
-    public override void _ExitTree()
-    {
-        GameController.Instance.PlayerDeathEvent -= OnPlayerDeath;
-        GameController.Instance.PlayerDeathEvent -= OnPlayerSpawn;
-    }    
 }

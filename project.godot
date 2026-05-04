@@ -13,7 +13,6 @@ config_version=5
 config/name="gdPlatformer"
 run/main_scene="uid://d0illtd0sg670"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
-config/icon="res://icon.svg"
 
 [display]
 
@@ -51,6 +50,7 @@ jump={
 [layer_names]
 
 2d_physics/layer_1="Player"
+2d_physics/layer_7="Trigger"
 2d_physics/layer_8="DamageSource"
 
 [physics]

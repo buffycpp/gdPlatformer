@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class CameraFollow : Camera2D
+public partial class PlayerCamera : Camera2D
 {
     [Export] public NodePath TargetPath;
 
@@ -78,5 +78,10 @@ public partial class CameraFollow : Camera2D
         newPos.Y = Mathf.Lerp(GlobalPosition.Y, desiredPos.Y, VerticalFollowSpeed * dt);
 
         GlobalPosition = newPos;
+    }
+
+    public void ForcePosition(Vector2 position)
+    {
+        GlobalPosition = position;
     }
 }

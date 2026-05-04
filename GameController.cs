@@ -7,7 +7,7 @@ public partial class GameController : Node
 
 	public event Action StartLevelEvent;
 	public event Action PlayerDeathEvent;
-	public event Action PlayerSpawnEvent;
+	public event Action LevelCompleteEvent;
 
 	public static float GameTime { get; private set; }
 
@@ -25,20 +25,29 @@ public partial class GameController : Node
 		Instance = this;
 	}
 
-    public override void _Ready()
-    {
-        StartLevel();
-    }
-
+	public override void _Ready()
+	{
+		LevelManager.Instance.LoadLevelByIndex(0);
+	}
 
 	public override void _Process(double delta)
 	{
+		if (!LevelRunning)
+		{
+			return;
+		}
+
 		float scaledDelta = (float)delta * TimeScale;
 		GameTime += scaledDelta;
 	}
 
 	public void StartLevel()
 	{
+		if (LevelRunning)
+		{
+			return;
+		}
+
 		LevelStartTime = GameTime;
 		LevelRunning = true;
 		StartLevelEvent?.Invoke();
@@ -49,14 +58,86 @@ public partial class GameController : Node
 		LevelRunning = false;
 	}
 
-	public void HandleDamage(DamageSource source)
+	public void SignalPlayerDeath(DamageSource source)
 	{
+		InputManager.Instance.SetInputContextDelayed(new DeathScreenInputContext(), 0.5f);
+		StopLevel();
 		PlayerDeathEvent?.Invoke();
+		EffectManager.Instance.GrayscaleEffect.Enable();
 	}
 
-	public void SpawnPlayer()
+	public void SignalLevelComplete()
 	{
-		StartLevel();
-		PlayerSpawnEvent?.Invoke();
+		CallDeferred(nameof(ProcessLevelComplete));
+	}
+
+	public void ProcessLevelComplete()
+	{
+		StopLevel();
+		LevelCompleteEvent?.Invoke();
+
+		ExecuteWithBlackscreen(0.25f,
+			duringBlackscreen: () =>
+			{
+				LevelManager.Instance.LoadNextLevel();
+				PlayerController.Instance.MovePlayerToSpawn();
+			},
+			afterBlackscreen: () =>
+			{
+				ResetCurrentLevel();
+				EffectManager.Instance.BlackscreenEffect.Disable();
+			},
+			fakeDelay: 1f
+		);
+	}
+
+	public void ResetCurrentLevel()
+	{
+		PlayerController.Instance.MovePlayerToSpawn();
+		PlayerController.Instance.ReleasePlayer();
+		EffectManager.Instance.GrayscaleEffect.Disable();
+	}
+
+	public void ResetCurrentLevelAfterDeath()
+	{
+		ExecuteWithBlackscreen(0.25f,
+			duringBlackscreen: ResetCurrentLevel,
+			afterBlackscreen: () =>
+			{
+				InputManager.Instance.SetInputContext(new GameInputContext());
+			}
+		);
+	}
+
+	public void ExecuteWithBlackscreen(
+		float fadeTime,
+		Action duringBlackscreen,
+		Action afterBlackscreen = null,
+		float fakeDelay = 0
+	)
+	{
+		void Leave()
+		{
+			EffectManager.Instance.BlackscreenEffect.Disable(fadeTime);
+
+			if (afterBlackscreen != null)
+			{
+				GetTree().CreateTimer(fadeTime).Timeout += afterBlackscreen;
+			}
+		}
+
+		EffectManager.Instance.BlackscreenEffect.Enable(fadeTime);
+		GetTree().CreateTimer(fadeTime).Timeout += () =>
+		{
+			duringBlackscreen?.Invoke();
+			if (fakeDelay > 0)
+			{
+				GetTree().CreateTimer(fakeDelay).Timeout += Leave;
+			}
+			else
+			{
+				Leave();
+			}
+		};
 	}
 }
