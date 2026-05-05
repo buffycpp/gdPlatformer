@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cbuceemp8svvn" path="res://Background/Forest/forest_mid.png" id="14_w3rk5"]
 [ext_resource type="Texture2D" uid="uid://i4aaaoijbs45" path="res://Background/Moon/moon_front.png" id="15_5mvff"]
 [ext_resource type="Texture2D" uid="uid://doq24e52q63ei" path="res://Background/Forest/forest_short.png" id="16_oye8v"]
+[ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
 radius = 5.2
@@ -230,6 +231,23 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_ryguw"]
+offsets = PackedFloat32Array(0, 0.10330579, 0.73140496, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.88193655, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ov1y2"]
+gradient = SubResource("Gradient_ryguw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d13ii"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(90, 160, 30)
+spread = 180.0
+initial_velocity_min = 0.79999995
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_ov1y2")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
 shader = ExtResource("9_hhcpw")
 shader_parameter/strength = 1.0
@@ -289,7 +307,6 @@ Speed = 5.0
 SizeVariation = 0.005
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerController" unique_id=497434114]
-position = Vector2(9, -2)
 zoom = Vector2(3, 3)
 position_smoothing_speed = 10.0
 script = ExtResource("4_5tuhn")
@@ -298,6 +315,14 @@ FollowSpeed = 10.0
 LookAheadAmount = 0.0
 LookAheadSpeed = 0.0
 VerticalFollowSpeed = 10.0
+
+[node name="GPUDustParticles" type="GPUParticles2D" parent="PlayerController/PlayerCamera" unique_id=586982947]
+scale = Vector2(4.765, 1)
+amount = 60
+texture = ExtResource("21_getpj")
+lifetime = 10.0
+preprocess = 15.0
+process_material = SubResource("ParticleProcessMaterial_d13ii")
 
 [node name="EffectManager" type="Node" parent="." unique_id=1957678399 node_paths=PackedStringArray("BlackscreenEffect", "GrayscaleEffect")]
 script = ExtResource("7_3b0ty")

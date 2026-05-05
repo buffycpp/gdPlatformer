@@ -22,7 +22,7 @@ region = Rect2(160, 352, 32, 32)
 offsets = PackedFloat32Array(0, 0.10330579, 0.73140496, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.88193655, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ov1y2"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x1b8h"]
 gradient = SubResource("Gradient_xa8ha")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ov1y2"]
@@ -33,7 +33,7 @@ spread = 180.0
 initial_velocity_min = 0.79999995
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
-color_ramp = SubResource("GradientTexture1D_ov1y2")
+color_ramp = SubResource("GradientTexture1D_x1b8h")
 
 [sub_resource type="Environment" id="Environment_x1b8h"]
 background_mode = 3
@@ -483,6 +483,7 @@ texture_scale = 0.4
 script = ExtResource("5_km4qa")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2085567873]
+visible = false
 position = Vector2(112, -32)
 scale = Vector2(4.765, 1)
 amount = 20
@@ -497,6 +498,3 @@ environment = SubResource("Environment_x1b8h")
 [node name="1PxParticle" type="Sprite2D" parent="." unique_id=1911579382]
 position = Vector2(193, -38)
 texture = ExtResource("11_xa8ha")
-
-[node name="LevelCompleteTrigger2" parent="." unique_id=1828468705 instance=ExtResource("3_0qw3o")]
-position = Vector2(224, 0)
