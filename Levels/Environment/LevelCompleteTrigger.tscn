@@ -1,13 +1,118 @@
 [gd_scene format=3 uid="uid://cjffeqi2x4rt0"]
 
 [ext_resource type="Script" uid="uid://dtry6kpqdscla" path="res://Levels/Environment/LevelCompleteTrigger.cs" id="1_0p3q7"]
+[ext_resource type="Texture2D" uid="uid://cyp8okg5niwre" path="res://Art/exit_static.png" id="2_6q1vn"]
+[ext_resource type="Texture2D" uid="uid://dv1l8xfd1y3jo" path="res://Art/exit_doors.png" id="3_0t6c8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w2c6"]
 
-[node name="LevelCompleteTrigger" type="Area2D" unique_id=671268552]
+[sub_resource type="AtlasTexture" id="AtlasTexture_busyi"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fvnt"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqrwj"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfuei"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0ji2"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6e3b"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llx5h"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c4pl"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bb0y"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwy7f"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne6cx"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgu02"]
+atlas = ExtResource("3_0t6c8")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ribrl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_busyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fvnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqrwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfuei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ji2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6e3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llx5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5c4pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bb0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwy7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne6cx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgu02")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LevelCompleteTrigger" type="Area2D" unique_id=671268552 node_paths=PackedStringArray("animatedSprite")]
 collision_layer = 64
 script = ExtResource("1_0p3q7")
+animatedSprite = NodePath("Doors")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=56976601]
 shape = SubResource("RectangleShape2D_2w2c6")
 disabled = true
+
+[node name="Static" type="Sprite2D" parent="." unique_id=300258637]
+position = Vector2(0, -8)
+texture = ExtResource("2_6q1vn")
+
+[node name="Doors" type="AnimatedSprite2D" parent="." unique_id=147079896]
+z_index = 1
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_ribrl")
+speed_scale = 10.0

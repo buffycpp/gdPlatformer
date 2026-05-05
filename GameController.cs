@@ -76,19 +76,23 @@ public partial class GameController : Node
 		StopLevel();
 		LevelCompleteEvent?.Invoke();
 
-		ExecuteWithBlackscreen(0.25f,
-			duringBlackscreen: () =>
-			{
-				LevelManager.Instance.LoadNextLevel();
-				PlayerController.Instance.MovePlayerToSpawn();
-			},
-			afterBlackscreen: () =>
-			{
-				ResetCurrentLevel();
-				EffectManager.Instance.BlackscreenEffect.Disable();
-			},
-			fakeDelay: 1f
-		);
+		GetTree().CreateTimer(1f).Timeout += () =>
+		{
+			ExecuteWithBlackscreen(0.25f,
+				duringBlackscreen: () =>
+				{
+					LevelManager.Instance.LoadNextLevel();
+					PlayerController.Instance.MovePlayerToSpawn();
+				},
+				afterBlackscreen: () =>
+				{
+					ResetCurrentLevel();
+					EffectManager.Instance.BlackscreenEffect.Disable();
+				},
+				fakeDelay: 1f
+			);
+		};
+
 	}
 
 	public void ResetCurrentLevel()

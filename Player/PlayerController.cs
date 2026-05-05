@@ -36,11 +36,20 @@ public partial class PlayerController : SingletonNode<PlayerController>
         Player.QueueJump();
     }
 
+    public void MoveTo(Vector2 position, bool withCamera = false)
+    {
+        Player.ForcePosition(position);
+
+        if (withCamera)
+        {
+            PlayerCamera.ForcePosition(position);
+        }
+    }
+
     public void MovePlayerToSpawn()
     {
         var position = new Vector2(0, 0);
-        Player.ForcePosition(position);
-        PlayerCamera.ForcePosition(position);
+        MoveTo(position, withCamera: true);
     }
 
     public void ReleasePlayer()

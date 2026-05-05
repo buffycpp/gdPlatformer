@@ -3,6 +3,7 @@ using System;
 
 public partial class LevelCompleteTrigger : Area2D
 {
+	[Export] public AnimatedSprite2D animatedSprite;
 	private CollisionShape2D _collisionShape;
 
 	public override void _Ready()
@@ -30,7 +31,10 @@ public partial class LevelCompleteTrigger : Area2D
 	{
 		if (body.IsInGroup("Player"))
 		{
+			PlayerController.Instance.MoveTo(GlobalPosition + Vector2.Down * 20);
 			GameController.Instance.SignalLevelComplete();
+			animatedSprite.ZIndex = 100;
+			animatedSprite.Play();
 		}
 	}
 
