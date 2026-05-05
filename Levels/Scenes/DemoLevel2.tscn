@@ -215,4 +215,4 @@ Permanent = true
 PhaseOffset = 0.0
 
 [node name="LevelCompleteTrigger" parent="." unique_id=671268552 instance=ExtResource("3_e68xf")]
-position = Vector2(1424, -368)
+position = Vector2(1408, -352)

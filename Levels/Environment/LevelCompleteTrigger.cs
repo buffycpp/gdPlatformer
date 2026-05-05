@@ -31,10 +31,15 @@ public partial class LevelCompleteTrigger : Area2D
 	{
 		if (body.IsInGroup("Player"))
 		{
-			PlayerController.Instance.MoveTo(GlobalPosition + Vector2.Down * 20);
-			GameController.Instance.SignalLevelComplete();
-			animatedSprite.ZIndex = 100;
-			animatedSprite.Play();
+			PlayerController.Instance.WalkTo(GlobalPosition, () =>
+			{
+				GetTree().CreateTimer(0.5f).Timeout += () =>
+				{
+					GameController.Instance.SignalLevelComplete();
+					animatedSprite.ZIndex = 100;
+					animatedSprite.Play();									
+				};
+			});
 		}
 	}
 

@@ -29,6 +29,8 @@ public partial class Player : CharacterBody2D
     private float _deathTimer = 0;
     public bool IsDead { get; private set; } = false;
     public bool IsDormant { get; private set; } = false;
+    private Vector2? _moveDestination = null;
+    private Action _onDestinationReached = null;
 
     //Input
     public float _xInput = 0;
@@ -36,37 +38,116 @@ public partial class Player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 velocity = Velocity;
-        float dt = (float)delta;
+        
+        float fDelta = (float)delta;
 
         if (IsDormant || IsDead)
         {
             return;
         }
 
-        AliveTime += dt;
+        AliveTime += fDelta;
+
+        Vector2 velocity;
+        if (_moveDestination == null)
+        {
+            velocity = MoveWithInput(fDelta);
+        }
+        else
+        {
+            velocity = MoveWithDestination(fDelta);
+        }
 
         // --------------------
-        // GRAVITY
+        // SLOPE SETTINGS
         // --------------------
-        if (!IsOnFloor())
-            velocity.Y += Gravity * dt;
+        FloorSnapLength = SnapLength;
+        FloorMaxAngle = Mathf.DegToRad(FloorMaxAngleCfg);
+        FloorStopOnSlope = true;
+        SafeMargin = 0.05f;
 
-        // --------------------
-        // WALL JUMP LOCK TIMER
-        // --------------------
-        if (_wallJumpLockTimer > 0)
-            _wallJumpLockTimer -= dt;
+        Velocity = velocity;
+        UpdateAnimation(velocity);
 
-        // --------------------
-        // INPUT
-        // --------------------
+        MoveAndSlide();
+
+        if (_moveDestination != null)
+        {
+            if (GlobalPosition.DistanceTo(_moveDestination.Value) < 3f)
+            {
+                _moveDestination = null;
+                _onDestinationReached?.Invoke();
+            }
+        }
+    }
+
+    public Vector2 MoveWithDestination(float delta)
+    {
+        if (_moveDestination == null)
+        {
+            return Vector2.Zero;
+        }
+
+        Vector2 velocity = Velocity;
         bool onFloor = IsOnFloor();
+
+        //gravity                
+        if (!onFloor)
+        {
+            velocity.Y += Gravity * delta;            
+        }
+
+        float direction = 0;
+        if (_moveDestination.Value.X < GlobalPosition.X)
+        {
+            direction = -1f;
+        }
+        else if(_moveDestination.Value.X > GlobalPosition.X)
+        {
+            direction = 1;
+        }
+
+        //horizontal movement
+        float targetX = direction * Speed;
+
+        if (_wallJumpLockTimer > 0)
+        {
+            // no control during lock
+        }
+        else if (onFloor)
+        {
+            // VERY SLIGHT smoothing instead of instant snap
+            velocity.X = Mathf.Lerp(velocity.X, targetX, GroundSmoothing * delta);
+        }
+        else
+        {
+            // air control stays as is
+            velocity.X = Mathf.Lerp(velocity.X, targetX, AirControl);
+        }      
+
+        return velocity;  
+    }
+
+    public Vector2 MoveWithInput(float delta)
+    {
+        Vector2 velocity = Velocity;
+        bool onFloor = IsOnFloor();
+
+        //gravity                
+        if (!onFloor)
+        {
+            velocity.Y += Gravity * delta;            
+        }
+
+        //walljump lock timer
+        if (_wallJumpLockTimer > 0)
+        {
+            _wallJumpLockTimer -= delta;                    
+        }
+
         bool onWall = IsOnWall() && !onFloor;
 
-        // --------------------
-        // WALL SLIDE
-        // --------------------
+        //wall slide
         if (onWall && _xInput != 0)
         {
             _isWallSliding = true;
@@ -77,9 +158,7 @@ public partial class Player : CharacterBody2D
             _isWallSliding = false;
         }
 
-        // --------------------
-        // HORIZONTAL MOVEMENT
-        // --------------------
+        //horizontal movement
         float targetX = _xInput * Speed;
 
         if (_wallJumpLockTimer > 0)
@@ -89,17 +168,15 @@ public partial class Player : CharacterBody2D
         else if (onFloor)
         {
             // VERY SLIGHT smoothing instead of instant snap
-            velocity.X = Mathf.Lerp(velocity.X, targetX, GroundSmoothing * dt);
+            velocity.X = Mathf.Lerp(velocity.X, targetX, GroundSmoothing * delta);
         }
         else
         {
-            // air control stays as-is (important for your feel)
+            // air control stays as is
             velocity.X = Mathf.Lerp(velocity.X, targetX, AirControl);
         }
 
-        // --------------------
-        // JUMPING
-        // --------------------
+        //jumping
         if (_jumpQueued)
         {
             if (onFloor)
@@ -118,23 +195,9 @@ public partial class Player : CharacterBody2D
             }
 
             _jumpQueued = false;
-        }
+        }        
 
-        // --------------------
-        // SLOPE SETTINGS
-        // --------------------
-        FloorSnapLength = SnapLength;
-        FloorMaxAngle = Mathf.DegToRad(FloorMaxAngleCfg);
-        FloorStopOnSlope = true;
-        SafeMargin = 0.05f;
-
-        // --------------------
-        // APPLY
-        // --------------------
-        Velocity = velocity;
-        UpdateAnimation(velocity);
-
-        MoveAndSlide();
+        return velocity;
     }
 
     public void UpdateAnimation(Vector2 velocity)
@@ -210,5 +273,11 @@ public partial class Player : CharacterBody2D
         Velocity = Vector2.Zero;
         UpdateAnimation(Velocity);
         GlobalPosition = position;
+    }
+
+    public void WalkTo(Vector2 position, Action onDestinationReached)
+    {
+        _moveDestination = position;
+        _onDestinationReached = onDestinationReached;
     }
 }

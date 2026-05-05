@@ -36,6 +36,11 @@ public partial class PlayerController : SingletonNode<PlayerController>
         Player.QueueJump();
     }
 
+    public void WalkTo(Vector2 position, Action onDestinationReached = null)
+    {
+        Player.WalkTo(position, onDestinationReached);
+    }
+
     public void MoveTo(Vector2 position, bool withCamera = false)
     {
         Player.ForcePosition(position);
