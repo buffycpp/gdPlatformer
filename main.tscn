@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://6bttyqx4nxjc" path="res://Player/Sprites/SPRITE_SHEET.png" id="6_devvj"]
 [ext_resource type="Script" uid="uid://brumvfyft1hkj" path="res://Effects/EffectManager.cs" id="7_3b0ty"]
 [ext_resource type="Script" uid="uid://doyt1oaundevh" path="res://Effects/BlackscreenEffect.cs" id="8_bg4s2"]
+[ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="8_cegan"]
+[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="9_82xsv"]
 [ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="9_hhcpw"]
 [ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="10_mxvw5"]
 [ext_resource type="Texture2D" uid="uid://b3hycrgq527vi" path="res://Background/Forest/forest_sky.png" id="11_xrxkg"]
@@ -274,6 +276,18 @@ animation = &"idle"
 frame_progress = 0.8356629
 speed_scale = 1.5
 
+[node name="PointLight2D" type="PointLight2D" parent="PlayerController/Player" unique_id=58554901]
+position = Vector2(0, -8)
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("8_cegan")
+texture_scale = 0.25
+script = ExtResource("9_82xsv")
+Speed = 5.0
+SizeVariation = 0.005
+
 [node name="PlayerCamera" type="Camera2D" parent="PlayerController" unique_id=497434114]
 position = Vector2(9, -2)
 zoom = Vector2(3, 3)
@@ -315,6 +329,7 @@ size_flags_vertical = 2
 script = ExtResource("10_mxvw5")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=471795360]
+visible = false
 follow_viewport_enabled = true
 follow_viewport_scale = 0.1
 

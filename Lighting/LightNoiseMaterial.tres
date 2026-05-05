@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d8t336hyy8jd"]
+
+[ext_resource type="Shader" uid="uid://fv8hyxxjfy72" path="res://Lighting/LightNoise.gdshader" id="1_g53q7"]
+[ext_resource type="Texture2D" uid="uid://b125ruf8twcq5" path="res://Lighting/noiseTexture.png" id="2_i7ssp"]
+
+[resource]
+shader = ExtResource("1_g53q7")
+shader_parameter/noise_tex = ExtResource("2_i7ssp")
+shader_parameter/strength = 0.5
+shader_parameter/speed = 5.0

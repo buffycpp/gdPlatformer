@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://dtry6kpqdscla" path="res://Levels/Environment/LevelCompleteTrigger.cs" id="1_0p3q7"]
 [ext_resource type="Texture2D" uid="uid://cyp8okg5niwre" path="res://Art/exit_static.png" id="2_6q1vn"]
 [ext_resource type="Texture2D" uid="uid://dv1l8xfd1y3jo" path="res://Art/exit_doors.png" id="3_0t6c8"]
+[ext_resource type="Material" uid="uid://d8t336hyy8jd" path="res://Lighting/LightNoiseMaterial.tres" id="4_2fvnt"]
+[ext_resource type="Texture2D" uid="uid://c71wa7vt5da2o" path="res://Lighting/cone_c_blur.png" id="5_uqrwj"]
+[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="6_gfuei"]
+[ext_resource type="Texture2D" uid="uid://bkknhgp32m0ap" path="res://Lighting/shape_a.png" id="7_uqrwj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w2c6"]
 size = Vector2(48, 58)
@@ -118,3 +122,49 @@ z_index = 1
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_ribrl")
 speed_scale = 7.5
+
+[node name="Label" type="Label" parent="." unique_id=2077539059]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -48.0
+offset_right = 28.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+theme_override_colors/font_color = Color(0, 18.892157, 18.892157, 1)
+theme_override_font_sizes/font_size = 16
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConeLight" type="PointLight2D" parent="." unique_id=2110701566]
+z_index = 3
+material = ExtResource("4_2fvnt")
+position = Vector2(8.526513e-14, -16)
+rotation = -3.1415925
+scale = Vector2(0.855, 1)
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("5_uqrwj")
+texture_scale = 0.1
+script = ExtResource("6_gfuei")
+SizeVariation = 0.0
+
+[node name="PointLight" type="PointLight2D" parent="." unique_id=1825680057]
+material = ExtResource("4_2fvnt")
+position = Vector2(976, 32)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.1
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_uqrwj")
+texture_scale = 0.3
+script = ExtResource("6_gfuei")

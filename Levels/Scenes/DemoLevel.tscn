@@ -3,6 +3,49 @@
 [ext_resource type="TileSet" uid="uid://vnex1dvkn6t" path="res://Levels/Environment/MainTileset.tres" id="1_2w2c6"]
 [ext_resource type="PackedScene" uid="uid://btiu6ii2ay1l0" path="res://Levels/Environment/Spikes.tscn" id="2_0qw3o"]
 [ext_resource type="PackedScene" uid="uid://cjffeqi2x4rt0" path="res://Levels/Environment/LevelCompleteTrigger.tscn" id="3_0qw3o"]
+[ext_resource type="Material" uid="uid://d8t336hyy8jd" path="res://Lighting/LightNoiseMaterial.tres" id="4_w5jrt"]
+[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="5_km4qa"]
+[ext_resource type="Texture2D" uid="uid://c55g1cvypog1g" path="res://Lighting/shape_c.png" id="5_w5jrt"]
+[ext_resource type="Texture2D" uid="uid://j5uf6133f735" path="res://Art/atlas.png" id="6_km4qa"]
+[ext_resource type="Texture2D" uid="uid://bkknhgp32m0ap" path="res://Lighting/shape_a.png" id="7_xaoe5"]
+[ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="8_x1b8h"]
+[ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="11_xa8ha"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x1b8h"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaoe5"]
+atlas = ExtResource("6_km4qa")
+region = Rect2(160, 352, 32, 32)
+
+[sub_resource type="Gradient" id="Gradient_xa8ha"]
+offsets = PackedFloat32Array(0, 0.10330579, 0.73140496, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.88193655, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ov1y2"]
+gradient = SubResource("Gradient_xa8ha")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ov1y2"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(30, 30, 30)
+spread = 180.0
+initial_velocity_min = 0.79999995
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_ov1y2")
+
+[sub_resource type="Environment" id="Environment_x1b8h"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.8
+glow_bloom = 0.25
+glow_blend_mode = 0
+fog_mode = 1
+fog_density = 1.0
+fog_height = 247.85
+fog_height_density = 5.9108
 
 [node name="DemoLevel" type="Node2D" unique_id=226105030]
 
@@ -216,3 +259,244 @@ PhaseOffset = 0.0
 
 [node name="LevelCompleteTrigger" parent="." unique_id=671268552 instance=ExtResource("3_0qw3o")]
 position = Vector2(1408, -352)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=710623393]
+color = Color(0.14044744, 0.14044744, 0.14044744, 1)
+
+[node name="Node2D4" type="Node2D" parent="." unique_id=1775428782]
+position = Vector2(64, -62)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D4" unique_id=1214711067]
+material = SubResource("CanvasItemMaterial_x1b8h")
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D4/Sprite2D" unique_id=2142664038]
+material = ExtResource("4_w5jrt")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("8_x1b8h")
+script = ExtResource("5_km4qa")
+Speed = 1.0
+EnergyVariation = 0.05
+SizeVariation = 0.05
+
+[node name="Node2D5" type="Node2D" parent="." unique_id=377582590]
+position = Vector2(432, -414)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D5" unique_id=706888019]
+material = SubResource("CanvasItemMaterial_x1b8h")
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D5/Sprite2D" unique_id=1595848702]
+material = ExtResource("4_w5jrt")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("8_x1b8h")
+script = ExtResource("5_km4qa")
+Speed = 1.0
+EnergyVariation = 0.05
+SizeVariation = 0.05
+
+[node name="Node2D7" type="Node2D" parent="." unique_id=1386131519]
+position = Vector2(608, -190)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D7" unique_id=1053294532]
+material = SubResource("CanvasItemMaterial_x1b8h")
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D7/Sprite2D" unique_id=1054456635]
+material = ExtResource("4_w5jrt")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("8_x1b8h")
+script = ExtResource("5_km4qa")
+Speed = 1.0
+EnergyVariation = 0.05
+SizeVariation = 0.05
+
+[node name="Node2D3" type="Node2D" parent="." unique_id=1777885258]
+position = Vector2(720, -322)
+rotation = 3.1415927
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D3" unique_id=920665501]
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D3/Sprite2D" unique_id=1438768189]
+material = ExtResource("4_w5jrt")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("5_w5jrt")
+script = ExtResource("5_km4qa")
+SizeVariation = 0.0
+
+[node name="Node2D6" type="Node2D" parent="." unique_id=1073555211]
+position = Vector2(944, -366)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D6" unique_id=1925022507]
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Node2D6/Sprite2D" unique_id=1992792061]
+material = ExtResource("4_w5jrt")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("5_w5jrt")
+script = ExtResource("5_km4qa")
+SizeVariation = 0.0
+
+[node name="BoxLight" type="Node2D" parent="." unique_id=827847625]
+position = Vector2(432, -416)
+
+[node name="PointLight2D2" type="PointLight2D" parent="BoxLight" unique_id=1815611262]
+visible = false
+material = ExtResource("4_w5jrt")
+position = Vector2(0, 127)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D5" type="PointLight2D" parent="BoxLight" unique_id=664740284]
+material = ExtResource("4_w5jrt")
+position = Vector2(-143, 160)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D7" type="PointLight2D" parent="BoxLight" unique_id=1424393345]
+material = ExtResource("4_w5jrt")
+position = Vector2(-112, 319)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D9" type="PointLight2D" parent="BoxLight" unique_id=1050983824]
+material = ExtResource("4_w5jrt")
+position = Vector2(144, 296)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D21" type="PointLight2D" parent="BoxLight" unique_id=1018505364]
+material = ExtResource("4_w5jrt")
+position = Vector2(384, 255)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D22" type="PointLight2D" parent="BoxLight" unique_id=807994583]
+material = ExtResource("4_w5jrt")
+position = Vector2(624, 256)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D23" type="PointLight2D" parent="BoxLight" unique_id=83974774]
+material = ExtResource("4_w5jrt")
+position = Vector2(720, 128)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D28" type="PointLight2D" parent="BoxLight" unique_id=1879468651]
+material = ExtResource("4_w5jrt")
+position = Vector2(480, -160)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="PointLight2D29" type="PointLight2D" parent="BoxLight" unique_id=1138078933]
+material = ExtResource("4_w5jrt")
+position = Vector2(512, -160)
+rotation = -3.1415925
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("7_xaoe5")
+texture_scale = 0.4
+script = ExtResource("5_km4qa")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2085567873]
+position = Vector2(112, -32)
+scale = Vector2(4.765, 1)
+amount = 20
+texture = ExtResource("11_xa8ha")
+lifetime = 15.0
+preprocess = 15.0
+process_material = SubResource("ParticleProcessMaterial_ov1y2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=790413892]
+environment = SubResource("Environment_x1b8h")
+
+[node name="1PxParticle" type="Sprite2D" parent="." unique_id=1911579382]
+position = Vector2(193, -38)
+texture = ExtResource("11_xa8ha")
+
+[node name="LevelCompleteTrigger2" parent="." unique_id=1828468705 instance=ExtResource("3_0qw3o")]
+position = Vector2(224, 0)
