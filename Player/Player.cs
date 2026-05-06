@@ -23,6 +23,9 @@ public partial class Player : CharacterBody2D
     [Export] public CollisionShape2D collisionShape2D;
     public float AliveTime { get; set; } = 0;
     [Export] public AudioStream JumpSound;
+    [Export] public AudioStream FootstepSound;
+    [Export] public AudioStreamPlayer2D StreamPlayer {get; set;}
+    [Export] public float FootstepFrequency {get; set;} = 0.25f;
 
     private float _wallJumpLockTimer = 0f;
     private bool _isWallSliding = false;
@@ -32,6 +35,7 @@ public partial class Player : CharacterBody2D
     public bool IsDormant { get; private set; } = false;
     private Vector2? _moveDestination = null;
     private Action _onDestinationReached = null;
+    private float _footstepTimer = 0;
 
     //Input
     public float _xInput = 0;
@@ -80,6 +84,8 @@ public partial class Player : CharacterBody2D
                 _onDestinationReached?.Invoke();
             }
         }
+
+        HandleFootsteps(fDelta);
     }
 
     public Vector2 MoveWithDestination(float delta)
@@ -202,7 +208,34 @@ public partial class Player : CharacterBody2D
             _jumpQueued = false;
         }
 
+        if (_isWallSliding)
+        {
+            if (!StreamPlayer.Playing)
+                StreamPlayer.Play();
+        }
+        else
+        {
+            if (StreamPlayer.Playing)
+                StreamPlayer.Stop();
+        }                
+
         return velocity;
+    }
+
+    public void HandleFootsteps(float delta)
+    {
+        _footstepTimer += delta;
+        if (!IsOnFloor() || _footstepTimer < FootstepFrequency)
+        {
+            return;
+        }
+
+        //if (Math.Abs(Velocity.X) > 1f)
+        if (_xInput != 0)
+        {
+            SoundManager.Instance.PlaySfx(FootstepSound, GlobalPosition, -10f, (float)GD.RandRange(0.9, 1.1));
+            _footstepTimer = 0;
+        }
     }
 
     public void PlayJumpSFX()

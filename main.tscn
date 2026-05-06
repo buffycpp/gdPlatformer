@@ -9,14 +9,17 @@
 [ext_resource type="Script" uid="uid://b1j803h30pyjc" path="res://Player/PlayerController.cs" id="5_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://6bttyqx4nxjc" path="res://Player/Sprites/SPRITE_SHEET.png" id="6_devvj"]
 [ext_resource type="Script" uid="uid://brumvfyft1hkj" path="res://Effects/EffectManager.cs" id="7_3b0ty"]
-[ext_resource type="AudioStream" uid="uid://obpxurafocry" path="res://Audio/jump_placeholder.mp3" id="7_074og"]
+[ext_resource type="AudioStream" uid="uid://di8blom6q8wjs" path="res://Audio/jump.wav" id="7_074og"]
 [ext_resource type="Script" uid="uid://doyt1oaundevh" path="res://Effects/BlackscreenEffect.cs" id="8_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="8_cegan"]
+[ext_resource type="AudioStream" uid="uid://casbkr58go41o" path="res://Audio/footstep05.ogg" id="8_getpj"]
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="9_82xsv"]
 [ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="9_hhcpw"]
 [ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="10_mxvw5"]
+[ext_resource type="AudioStream" uid="uid://dh3ovbfjmk1s6" path="res://Audio/slide_loop_1.wav" id="11_82xsv"]
 [ext_resource type="Script" uid="uid://boocx0iplxa20" path="res://Audio/SoundManager.cs" id="17_yaehf"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
+[ext_resource type="AudioStream" uid="uid://boo0hcbbcpwwt" path="res://Audio/AMBIENCE_SciFi_Space_Hangar_04_loop_stereo.wav" id="21_ryguw"]
 [ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
@@ -304,7 +307,7 @@ Player = NodePath("Player")
 PlayerCamera = NodePath("PlayerCamera")
 InputBlockTimeAfterDeath = 0.1
 
-[node name="Player" type="CharacterBody2D" parent="PlayerController" unique_id=1367322353 node_paths=PackedStringArray("animatedSprite", "collisionShape2D") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" parent="PlayerController" unique_id=1367322353 node_paths=PackedStringArray("animatedSprite", "collisionShape2D", "StreamPlayer") groups=["Player"]]
 z_index = 99
 collision_mask = 193
 floor_constant_speed = true
@@ -316,6 +319,9 @@ WallJumpForceY = -300.0
 animatedSprite = NodePath("AnimatedSprite2D")
 collisionShape2D = NodePath("CollisionShape2D")
 JumpSound = ExtResource("7_074og")
+FootstepSound = ExtResource("8_getpj")
+StreamPlayer = NodePath("AudioStreamPlayer2D")
+FootstepFrequency = 0.35
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player" unique_id=476196997]
 position = Vector2(0, -8)
@@ -339,6 +345,11 @@ texture_scale = 0.25
 script = ExtResource("9_82xsv")
 Speed = 5.0
 SizeVariation = 0.005
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerController/Player" unique_id=1629958932]
+stream = ExtResource("11_82xsv")
+volume_db = -10.0
+pitch_scale = 3.0
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerController" unique_id=497434114]
 zoom = Vector2(3, 3)
@@ -423,3 +434,8 @@ color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 script = ExtResource("17_yaehf")
 
 [node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="SoundManager" unique_id=1935058710]
+
+[node name="AudioStreamPlayer_Ambience" type="AudioStreamPlayer" parent="SoundManager" unique_id=340774327]
+stream = ExtResource("21_ryguw")
+volume_db = -15.0
+autoplay = true
