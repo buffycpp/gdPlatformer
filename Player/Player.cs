@@ -21,7 +21,8 @@ public partial class Player : CharacterBody2D
     [Export] public float GroundSmoothing = 18f;
     [Export] public AnimatedSprite2D animatedSprite;
     [Export] public CollisionShape2D collisionShape2D;
-    [Export] public float AliveTime = 0;
+    public float AliveTime { get; set; } = 0;
+    [Export] public AudioStream JumpSound;
 
     private float _wallJumpLockTimer = 0f;
     private bool _isWallSliding = false;
@@ -38,7 +39,7 @@ public partial class Player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        
+
         float fDelta = (float)delta;
 
         if (IsDormant || IsDead)
@@ -94,7 +95,7 @@ public partial class Player : CharacterBody2D
         //gravity                
         if (!onFloor)
         {
-            velocity.Y += Gravity * delta;            
+            velocity.Y += Gravity * delta;
         }
 
         float direction = 0;
@@ -102,7 +103,7 @@ public partial class Player : CharacterBody2D
         {
             direction = -1f;
         }
-        else if(_moveDestination.Value.X > GlobalPosition.X)
+        else if (_moveDestination.Value.X > GlobalPosition.X)
         {
             direction = 1;
         }
@@ -123,9 +124,9 @@ public partial class Player : CharacterBody2D
         {
             // air control stays as is
             velocity.X = Mathf.Lerp(velocity.X, targetX, AirControl);
-        }      
+        }
 
-        return velocity;  
+        return velocity;
     }
 
     public Vector2 MoveWithInput(float delta)
@@ -136,13 +137,13 @@ public partial class Player : CharacterBody2D
         //gravity                
         if (!onFloor)
         {
-            velocity.Y += Gravity * delta;            
+            velocity.Y += Gravity * delta;
         }
 
         //walljump lock timer
         if (_wallJumpLockTimer > 0)
         {
-            _wallJumpLockTimer -= delta;                    
+            _wallJumpLockTimer -= delta;
         }
 
         bool onWall = IsOnWall() && !onFloor;
@@ -182,6 +183,7 @@ public partial class Player : CharacterBody2D
             if (onFloor)
             {
                 velocity.Y = JumpVelocity;
+                PlayJumpSFX();
             }
             else if (_isWallSliding)
             {
@@ -192,12 +194,23 @@ public partial class Player : CharacterBody2D
 
                 _wallJumpLockTimer = WallJumpLockTime;
                 _isWallSliding = false;
+                PlayJumpSFX();
             }
 
+
+
             _jumpQueued = false;
-        }        
+        }
 
         return velocity;
+    }
+
+    public void PlayJumpSFX()
+    {
+        if (JumpSound != null)
+        {
+            SoundManager.Instance.PlaySfx(JumpSound, GlobalPosition, 0, (float)GD.RandRange(0.9, 1.1));
+        }
     }
 
     public void UpdateAnimation(Vector2 velocity)

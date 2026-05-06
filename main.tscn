@@ -9,11 +9,13 @@
 [ext_resource type="Script" uid="uid://b1j803h30pyjc" path="res://Player/PlayerController.cs" id="5_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://6bttyqx4nxjc" path="res://Player/Sprites/SPRITE_SHEET.png" id="6_devvj"]
 [ext_resource type="Script" uid="uid://brumvfyft1hkj" path="res://Effects/EffectManager.cs" id="7_3b0ty"]
+[ext_resource type="AudioStream" uid="uid://obpxurafocry" path="res://Audio/jump_placeholder.mp3" id="7_074og"]
 [ext_resource type="Script" uid="uid://doyt1oaundevh" path="res://Effects/BlackscreenEffect.cs" id="8_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="8_cegan"]
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="9_82xsv"]
 [ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="9_hhcpw"]
 [ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="10_mxvw5"]
+[ext_resource type="Script" uid="uid://boocx0iplxa20" path="res://Audio/SoundManager.cs" id="17_yaehf"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
 [ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
 
@@ -313,6 +315,7 @@ WallJumpForceX = 200.0
 WallJumpForceY = -300.0
 animatedSprite = NodePath("AnimatedSprite2D")
 collisionShape2D = NodePath("CollisionShape2D")
+JumpSound = ExtResource("7_074og")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player" unique_id=476196997]
 position = Vector2(0, -8)
@@ -415,3 +418,8 @@ environment = SubResource("Environment_x1b8h")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=916658038]
 color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+
+[node name="SoundManager" type="Node" parent="." unique_id=112119422]
+script = ExtResource("17_yaehf")
+
+[node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="SoundManager" unique_id=1935058710]
