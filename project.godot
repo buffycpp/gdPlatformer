@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gdPlatformer"
-run/main_scene="uid://d0illtd0sg670"
+run/main_scene="uid://crudmn0ol0tmt"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 
 [display]
@@ -61,4 +61,4 @@ jump={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.029506553, 0.029506562, 0.029506536, 1)
+environment/defaults/default_clear_color=Color(0.02729175, 0.029556004, 0.042374678, 1)

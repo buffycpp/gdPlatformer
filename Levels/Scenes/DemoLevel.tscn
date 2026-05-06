@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://j5uf6133f735" path="res://Art/atlas.png" id="6_km4qa"]
 [ext_resource type="Texture2D" uid="uid://bkknhgp32m0ap" path="res://Lighting/shape_a.png" id="7_xaoe5"]
 [ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="8_x1b8h"]
-[ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="11_xa8ha"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x1b8h"]
 light_mode = 1
@@ -17,35 +16,6 @@ light_mode = 1
 [sub_resource type="AtlasTexture" id="AtlasTexture_xaoe5"]
 atlas = ExtResource("6_km4qa")
 region = Rect2(160, 352, 32, 32)
-
-[sub_resource type="Gradient" id="Gradient_xa8ha"]
-offsets = PackedFloat32Array(0, 0.10330579, 0.73140496, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.88193655, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_x1b8h"]
-gradient = SubResource("Gradient_xa8ha")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ov1y2"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(30, 30, 30)
-spread = 180.0
-initial_velocity_min = 0.79999995
-initial_velocity_max = 1.0
-gravity = Vector3(0, 0, 0)
-color_ramp = SubResource("GradientTexture1D_x1b8h")
-
-[sub_resource type="Environment" id="Environment_x1b8h"]
-background_mode = 3
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 0.8
-glow_bloom = 0.25
-glow_blend_mode = 0
-fog_mode = 1
-fog_density = 1.0
-fog_height = 247.85
-fog_height_density = 5.9108
 
 [node name="DemoLevel" type="Node2D" unique_id=226105030]
 
@@ -259,9 +229,6 @@ PhaseOffset = 0.0
 
 [node name="LevelCompleteTrigger" parent="." unique_id=671268552 instance=ExtResource("3_0qw3o")]
 position = Vector2(1408, -352)
-
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=710623393]
-color = Color(0.14044744, 0.14044744, 0.14044744, 1)
 
 [node name="Node2D4" type="Node2D" parent="." unique_id=1775428782]
 position = Vector2(64, -62)
@@ -481,20 +448,3 @@ shadow_filter_smooth = 1.0
 texture = ExtResource("7_xaoe5")
 texture_scale = 0.4
 script = ExtResource("5_km4qa")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2085567873]
-visible = false
-position = Vector2(112, -32)
-scale = Vector2(4.765, 1)
-amount = 20
-texture = ExtResource("11_xa8ha")
-lifetime = 15.0
-preprocess = 15.0
-process_material = SubResource("ParticleProcessMaterial_ov1y2")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=790413892]
-environment = SubResource("Environment_x1b8h")
-
-[node name="1PxParticle" type="Sprite2D" parent="." unique_id=1911579382]
-position = Vector2(193, -38)
-texture = ExtResource("11_xa8ha")

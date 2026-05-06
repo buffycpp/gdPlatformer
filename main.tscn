@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d0illtd0sg670"]
+[gd_scene format=3 uid="uid://crudmn0ol0tmt"]
 
 [ext_resource type="Script" uid="uid://e5sdomvydh8y" path="res://GameController.cs" id="1_fpfj3"]
 [ext_resource type="Script" uid="uid://xbg6fid47hvj" path="res://Core/InputManager.cs" id="2_kjvhd"]
@@ -14,13 +14,8 @@
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="9_82xsv"]
 [ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="9_hhcpw"]
 [ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="10_mxvw5"]
-[ext_resource type="Texture2D" uid="uid://b3hycrgq527vi" path="res://Background/Forest/forest_sky.png" id="11_xrxkg"]
-[ext_resource type="Texture2D" uid="uid://bcu3i21daaonf" path="res://Background/Forest/forest_mountain.png" id="12_sqvbp"]
-[ext_resource type="Texture2D" uid="uid://bpurr6lx5rrrn" path="res://Background/Forest/forest_back.png" id="13_hri7i"]
-[ext_resource type="Texture2D" uid="uid://cbuceemp8svvn" path="res://Background/Forest/forest_mid.png" id="14_w3rk5"]
-[ext_resource type="Texture2D" uid="uid://i4aaaoijbs45" path="res://Background/Moon/moon_front.png" id="15_5mvff"]
-[ext_resource type="Texture2D" uid="uid://doq24e52q63ei" path="res://Background/Forest/forest_short.png" id="16_oye8v"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
+[ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
 radius = 5.2
@@ -238,19 +233,55 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.881936
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ov1y2"]
 gradient = SubResource("Gradient_ryguw")
 
+[sub_resource type="Curve" id="Curve_getpj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.43486, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ryguw"]
+curve = SubResource("Curve_getpj")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d13ii"]
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(90, 160, 30)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
 spread = 180.0
 initial_velocity_min = 0.79999995
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ryguw")
 color_ramp = SubResource("GradientTexture1D_ov1y2")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2sk"]
+atlas = ExtResource("22_ryguw")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k2k6"]
+atlas = ExtResource("22_ryguw")
+region = Rect2(0, 720, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
+atlas = ExtResource("22_ryguw")
+region = Rect2(0, 1440, 1280, 720)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
 shader = ExtResource("9_hhcpw")
 shader_parameter/strength = 1.0
+
+[sub_resource type="Environment" id="Environment_x1b8h"]
+background_mode = 3
+ambient_light_color = Color(1, 1, 1, 1)
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.8
+glow_bloom = 0.25
+glow_blend_mode = 0
+fog_mode = 1
+fog_density = 1.0
+fog_height = 247.85
+fog_height_density = 5.9108
 
 [node name="World" type="Node2D" unique_id=1486552269]
 
@@ -324,6 +355,30 @@ lifetime = 10.0
 preprocess = 15.0
 process_material = SubResource("ParticleProcessMaterial_d13ii")
 
+[node name="ParallaxBG" type="ParallaxBackground" parent="." unique_id=289453245]
+
+[node name="ParallaxLayerNear" type="ParallaxLayer" parent="ParallaxBG" unique_id=1753750485]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxLayerNear" unique_id=2084007531]
+texture = SubResource("AtlasTexture_jq2sk")
+
+[node name="ParallaxLayerMid" type="ParallaxLayer" parent="ParallaxBG" unique_id=1386362348]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxLayerMid" unique_id=200891471]
+texture = SubResource("AtlasTexture_4k2k6")
+
+[node name="ParallaxLayerFar" type="ParallaxLayer" parent="ParallaxBG" unique_id=2119291429]
+position = Vector2(400, 218)
+motion_scale = Vector2(0.01, 0.01)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxLayerFar" unique_id=499609186]
+texture = SubResource("AtlasTexture_htxhm")
+
 [node name="EffectManager" type="Node" parent="." unique_id=1957678399 node_paths=PackedStringArray("BlackscreenEffect", "GrayscaleEffect")]
 script = ExtResource("7_3b0ty")
 BlackscreenEffect = NodePath("CanvasLayer/BlackscreenEffect")
@@ -353,61 +408,10 @@ size_flags_horizontal = 6
 size_flags_vertical = 2
 script = ExtResource("10_mxvw5")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=471795360]
-visible = false
-follow_viewport_enabled = true
-follow_viewport_scale = 0.1
-
-[node name="ParallaxLayerSky" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1301406454]
-texture_repeat = 2
-motion_scale = Vector2(0.1, 0)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerSky" unique_id=1246168474]
-texture_repeat = 2
-scale = Vector2(2, 2)
-texture = ExtResource("11_xrxkg")
-
-[node name="ParallaxLayerMountain" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1486359854]
-motion_scale = Vector2(0.15, 0)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerMountain" unique_id=1129425000]
-texture_repeat = 2
-texture = ExtResource("12_sqvbp")
-
-[node name="ParallaxLayerFar" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1170107030]
-motion_scale = Vector2(0.2, 0)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFar" unique_id=286164308]
-texture_repeat = 2
-texture = ExtResource("13_hri7i")
-
-[node name="ParallaxLayerMid" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2046927735]
-motion_scale = Vector2(0.5, 0.1)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerMid" unique_id=636592310]
-texture_repeat = 2
-texture = ExtResource("14_w3rk5")
-
-[node name="ParallaxLayerFront" type="ParallaxLayer" parent="ParallaxBackground" unique_id=690257205]
-visible = false
-motion_scale = Vector2(0.8, 0.5)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFront" unique_id=1268185524]
-texture_repeat = 2
-texture = ExtResource("15_5mvff")
-offset = Vector2(0.2, 0)
-
-[node name="ParallaxLayerFloor" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1446077583]
-motion_scale = Vector2(1, 0.5)
-motion_mirroring = Vector2(3800, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFloor" unique_id=843152021]
-texture_repeat = 2
-texture = ExtResource("16_oye8v")
-
 [node name="ActiveLevel" type="Node2D" parent="." unique_id=2042712409]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=95034074]
+environment = SubResource("Environment_x1b8h")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=916658038]
+color = Color(0.19607843, 0.19607843, 0.19607843, 1)
