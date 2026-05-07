@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://boocx0iplxa20" path="res://Audio/SoundManager.cs" id="17_yaehf"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
 [ext_resource type="AudioStream" uid="uid://boo0hcbbcpwwt" path="res://Audio/AMBIENCE_SciFi_Space_Hangar_04_loop_stereo.wav" id="21_ryguw"]
+[ext_resource type="Script" uid="uid://bl2o0jgseagxc" path="res://UI/LevelStatistics.cs" id="22_0odxb"]
 [ext_resource type="FontFile" uid="uid://ph44g1byfkg" path="res://Font/Jersey10-Regular.ttf" id="22_d13ii"]
 [ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
 [ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="23_1u8w0"]
@@ -291,11 +292,6 @@ fog_density = 1.0
 fog_height = 247.85
 fog_height_density = 5.9108
 
-[sub_resource type="LabelSettings" id="LabelSettings_d13ii"]
-font_size = 30
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
-
 [node name="World" type="Node2D" unique_id=1486552269]
 
 [node name="GameController" type="Node" parent="." unique_id=1863727526]
@@ -450,85 +446,36 @@ color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=911767256]
 
-[node name="Statistics" type="Panel" parent="CanvasLayer" unique_id=1466753009]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/Statistics" unique_id=1103569587]
-layout_mode = 0
+[node name="LevelStatistics" type="VBoxContainer" parent="CanvasLayer" unique_id=1103569587 node_paths=PackedStringArray("levelTimeLabel", "levelDeathsLabel")]
+offset_top = 5.0
 offset_right = 233.0
-offset_bottom = 110.0
+offset_bottom = 115.0
+script = ExtResource("22_0odxb")
+levelTimeLabel = NodePath("MarginContainer/VFlowContainer/LevelTime")
+levelDeathsLabel = NodePath("HFlowContainer/DeathCount")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Statistics/VFlowContainer" unique_id=1788458556]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/LevelStatistics" unique_id=1788458556]
 layout_mode = 2
 theme_override_constants/margin_left = 7
 
-[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer" unique_id=868692341]
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/LevelStatistics/MarginContainer" unique_id=868692341]
 layout_mode = 2
 
-[node name="TotalTime" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer/VFlowContainer" unique_id=1387907990]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("22_d13ii")
-theme_override_font_sizes/font_size = 30
-text = "05:10.3"
-label_settings = SubResource("LabelSettings_d13ii")
-
-[node name="LevelTime" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer/VFlowContainer" unique_id=1539457383]
+[node name="LevelTime" type="Label" parent="CanvasLayer/LevelStatistics/MarginContainer/VFlowContainer" unique_id=1539457383]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("23_1u8w0")
 theme_override_font_sizes/font_size = 30
-text = "05:10.3"
+text = "00:00.0"
 
-[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/Statistics/VFlowContainer" unique_id=447662205]
+[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/LevelStatistics" unique_id=447662205]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Statistics/VFlowContainer/HFlowContainer" unique_id=1387478340]
-layout_mode = 2
-texture = ExtResource("23_d13ii")
-
-[node name="DeathCount" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/HFlowContainer" unique_id=215345129]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("22_d13ii")
-theme_override_font_sizes/font_size = 30
-text = "17"
-
-[node name="RunStatistics" type="VBoxContainer" parent="CanvasLayer" unique_id=799871079]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -233.0
-offset_top = -65.0
-grow_horizontal = 0
-grow_vertical = 0
-pivot_offset_ratio = Vector2(1, 1)
-
-[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/RunStatistics" unique_id=1571881216]
-layout_mode = 2
-alignment = 2
-
-[node name="DeathCount" type="Label" parent="CanvasLayer/RunStatistics/HFlowContainer" unique_id=734661417]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("22_d13ii")
-theme_override_font_sizes/font_size = 30
-text = "17"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RunStatistics/HFlowContainer" unique_id=53801955]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/LevelStatistics/HFlowContainer" unique_id=1387478340]
 layout_mode = 2
 texture = ExtResource("23_d13ii")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/RunStatistics" unique_id=1716473539]
+[node name="DeathCount" type="Label" parent="CanvasLayer/LevelStatistics/HFlowContainer" unique_id=215345129]
 layout_mode = 2
-theme_override_constants/margin_right = 7
-
-[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/RunStatistics/MarginContainer" unique_id=901958511]
-layout_mode = 2
-
-[node name="TotalTime" type="Label" parent="CanvasLayer/RunStatistics/MarginContainer/VFlowContainer" unique_id=1931775059]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("23_1u8w0")
+theme_override_fonts/font = ExtResource("22_d13ii")
 theme_override_font_sizes/font_size = 30
-text = "05:10.3"
-horizontal_alignment = 2
+text = "0"

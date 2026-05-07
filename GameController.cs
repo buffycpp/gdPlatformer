@@ -60,6 +60,11 @@ public partial class GameController : Node
 
 	public void SignalPlayerDeath(DamageSource source)
 	{
+		if (!LevelRunning)
+		{
+			return;
+		}
+		
 		InputManager.Instance.SetInputContextDelayed(new DeathScreenInputContext(), 0.5f);
 		StopLevel();
 		PlayerDeathEvent?.Invoke();

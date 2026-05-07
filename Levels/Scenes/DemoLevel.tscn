@@ -273,6 +273,7 @@ EnergyVariation = 0.05
 SizeVariation = 0.05
 
 [node name="Node2D7" type="Node2D" parent="." unique_id=1386131519]
+visible = false
 position = Vector2(608, -190)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D7" unique_id=1053294532]
@@ -294,6 +295,7 @@ EnergyVariation = 0.05
 SizeVariation = 0.05
 
 [node name="Node2D3" type="Node2D" parent="." unique_id=1777885258]
+visible = false
 position = Vector2(720, -322)
 rotation = 3.1415927
 
@@ -385,6 +387,7 @@ texture_scale = 0.4
 script = ExtResource("5_km4qa")
 
 [node name="PointLight2D21" type="PointLight2D" parent="BoxLight" unique_id=1018505364]
+visible = false
 material = ExtResource("4_w5jrt")
 position = Vector2(384, 255)
 rotation = -3.1415925
@@ -398,6 +401,7 @@ texture_scale = 0.4
 script = ExtResource("5_km4qa")
 
 [node name="PointLight2D22" type="PointLight2D" parent="BoxLight" unique_id=807994583]
+visible = false
 material = ExtResource("4_w5jrt")
 position = Vector2(624, 256)
 rotation = -3.1415925
@@ -412,7 +416,7 @@ script = ExtResource("5_km4qa")
 
 [node name="PointLight2D23" type="PointLight2D" parent="BoxLight" unique_id=83974774]
 material = ExtResource("4_w5jrt")
-position = Vector2(720, 128)
+position = Vector2(719, 128)
 rotation = -3.1415925
 color = Color(1.309, 1.309, 1.309, 1)
 energy = 0.3
