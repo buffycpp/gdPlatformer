@@ -24,8 +24,8 @@ public partial class Player : CharacterBody2D
     public float AliveTime { get; set; } = 0;
     [Export] public AudioStream JumpSound;
     [Export] public AudioStream FootstepSound;
-    [Export] public AudioStreamPlayer2D StreamPlayer {get; set;}
-    [Export] public float FootstepFrequency {get; set;} = 0.25f;
+    [Export] public AudioStreamPlayer2D StreamPlayer { get; set; }
+    [Export] public float FootstepFrequency { get; set; } = 0.25f;
 
     private float _wallJumpLockTimer = 0f;
     private bool _isWallSliding = false;
@@ -208,7 +208,8 @@ public partial class Player : CharacterBody2D
             _jumpQueued = false;
         }
 
-        if (_isWallSliding)
+        //only play sound if sliding down, not up
+        if (_isWallSliding && velocity.Y > 0)
         {
             if (!StreamPlayer.Playing)
                 StreamPlayer.Play();
@@ -217,7 +218,7 @@ public partial class Player : CharacterBody2D
         {
             if (StreamPlayer.Playing)
                 StreamPlayer.Stop();
-        }                
+        }
 
         return velocity;
     }

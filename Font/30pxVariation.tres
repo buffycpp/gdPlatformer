@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" format=3 uid="uid://l4wa08pn4ttr"]
+
+[ext_resource type="FontFile" uid="uid://ph44g1byfkg" path="res://Font/Jersey10-Regular.ttf" id="1_7rni4"]
+
+[resource]
+base_font = ExtResource("1_7rni4")
+spacing_top = -5
+spacing_bottom = -5

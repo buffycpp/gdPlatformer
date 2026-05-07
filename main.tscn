@@ -20,7 +20,14 @@
 [ext_resource type="Script" uid="uid://boocx0iplxa20" path="res://Audio/SoundManager.cs" id="17_yaehf"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="21_getpj"]
 [ext_resource type="AudioStream" uid="uid://boo0hcbbcpwwt" path="res://Audio/AMBIENCE_SciFi_Space_Hangar_04_loop_stereo.wav" id="21_ryguw"]
+[ext_resource type="FontFile" uid="uid://ph44g1byfkg" path="res://Font/Jersey10-Regular.ttf" id="22_d13ii"]
 [ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
+[ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="23_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://b3i26vwcefnj5" path="res://Art/skull.png" id="23_d13ii"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
+shader = ExtResource("9_hhcpw")
+shader_parameter/strength = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
 radius = 5.2
@@ -271,10 +278,6 @@ region = Rect2(0, 720, 1280, 720)
 atlas = ExtResource("22_ryguw")
 region = Rect2(0, 1440, 1280, 720)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
-shader = ExtResource("9_hhcpw")
-shader_parameter/strength = 1.0
-
 [sub_resource type="Environment" id="Environment_x1b8h"]
 background_mode = 3
 ambient_light_color = Color(1, 1, 1, 1)
@@ -288,6 +291,11 @@ fog_density = 1.0
 fog_height = 247.85
 fog_height_density = 5.9108
 
+[sub_resource type="LabelSettings" id="LabelSettings_d13ii"]
+font_size = 30
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
 [node name="World" type="Node2D" unique_id=1486552269]
 
 [node name="GameController" type="Node" parent="." unique_id=1863727526]
@@ -300,6 +308,45 @@ script = ExtResource("2_kjvhd")
 script = ExtResource("2_sc1dx")
 ActiveLevelList = ExtResource("3_kjvhd")
 ActiveLevelContainer = NodePath("../ActiveLevel")
+
+[node name="EffectManager" type="Node" parent="." unique_id=1957678399 node_paths=PackedStringArray("BlackscreenEffect", "GrayscaleEffect")]
+script = ExtResource("7_3b0ty")
+BlackscreenEffect = NodePath("CanvasLayer/BlackscreenEffect")
+GrayscaleEffect = NodePath("CanvasLayer/GrayscaleEffect")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="EffectManager" unique_id=514686151]
+
+[node name="BlackscreenEffect" type="ColorRect" parent="EffectManager/CanvasLayer" unique_id=1648226616]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("8_bg4s2")
+
+[node name="GrayscaleEffect" type="ColorRect" parent="EffectManager/CanvasLayer" unique_id=1401364946]
+visible = false
+material = SubResource("ShaderMaterial_2cqfq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+script = ExtResource("10_mxvw5")
+
+[node name="SoundManager" type="Node" parent="." unique_id=112119422]
+script = ExtResource("17_yaehf")
+
+[node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="SoundManager" unique_id=1935058710]
+
+[node name="AudioStreamPlayer_Ambience" type="AudioStreamPlayer" parent="SoundManager" unique_id=340774327]
+stream = ExtResource("21_ryguw")
+volume_db = -15.0
+autoplay = true
 
 [node name="PlayerController" type="Node" parent="." unique_id=1754371412 node_paths=PackedStringArray("Player", "PlayerCamera")]
 script = ExtResource("5_sc1dx")
@@ -321,7 +368,7 @@ collisionShape2D = NodePath("CollisionShape2D")
 JumpSound = ExtResource("7_074og")
 FootstepSound = ExtResource("8_getpj")
 StreamPlayer = NodePath("AudioStreamPlayer2D")
-FootstepFrequency = 0.35
+FootstepFrequency = 0.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player" unique_id=476196997]
 position = Vector2(0, -8)
@@ -393,35 +440,6 @@ motion_mirroring = Vector2(1280, 720)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/ParallaxLayerFar" unique_id=499609186]
 texture = SubResource("AtlasTexture_htxhm")
 
-[node name="EffectManager" type="Node" parent="." unique_id=1957678399 node_paths=PackedStringArray("BlackscreenEffect", "GrayscaleEffect")]
-script = ExtResource("7_3b0ty")
-BlackscreenEffect = NodePath("CanvasLayer/BlackscreenEffect")
-GrayscaleEffect = NodePath("CanvasLayer/GrayscaleEffect")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="EffectManager" unique_id=514686151]
-
-[node name="BlackscreenEffect" type="ColorRect" parent="EffectManager/CanvasLayer" unique_id=1648226616]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-script = ExtResource("8_bg4s2")
-
-[node name="GrayscaleEffect" type="ColorRect" parent="EffectManager/CanvasLayer" unique_id=1401364946]
-visible = false
-material = SubResource("ShaderMaterial_2cqfq")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 2
-script = ExtResource("10_mxvw5")
-
 [node name="ActiveLevel" type="Node2D" parent="." unique_id=2042712409]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=95034074]
@@ -430,12 +448,87 @@ environment = SubResource("Environment_x1b8h")
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=916658038]
 color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
-[node name="SoundManager" type="Node" parent="." unique_id=112119422]
-script = ExtResource("17_yaehf")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=911767256]
 
-[node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="SoundManager" unique_id=1935058710]
+[node name="Statistics" type="Panel" parent="CanvasLayer" unique_id=1466753009]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="AudioStreamPlayer_Ambience" type="AudioStreamPlayer" parent="SoundManager" unique_id=340774327]
-stream = ExtResource("21_ryguw")
-volume_db = -15.0
-autoplay = true
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/Statistics" unique_id=1103569587]
+layout_mode = 0
+offset_right = 233.0
+offset_bottom = 110.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Statistics/VFlowContainer" unique_id=1788458556]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer" unique_id=868692341]
+layout_mode = 2
+
+[node name="TotalTime" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer/VFlowContainer" unique_id=1387907990]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_d13ii")
+theme_override_font_sizes/font_size = 30
+text = "05:10.3"
+label_settings = SubResource("LabelSettings_d13ii")
+
+[node name="LevelTime" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/MarginContainer/VFlowContainer" unique_id=1539457383]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_1u8w0")
+theme_override_font_sizes/font_size = 30
+text = "05:10.3"
+
+[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/Statistics/VFlowContainer" unique_id=447662205]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Statistics/VFlowContainer/HFlowContainer" unique_id=1387478340]
+layout_mode = 2
+texture = ExtResource("23_d13ii")
+
+[node name="DeathCount" type="Label" parent="CanvasLayer/Statistics/VFlowContainer/HFlowContainer" unique_id=215345129]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_d13ii")
+theme_override_font_sizes/font_size = 30
+text = "17"
+
+[node name="RunStatistics" type="VBoxContainer" parent="CanvasLayer" unique_id=799871079]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -233.0
+offset_top = -65.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(1, 1)
+
+[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/RunStatistics" unique_id=1571881216]
+layout_mode = 2
+alignment = 2
+
+[node name="DeathCount" type="Label" parent="CanvasLayer/RunStatistics/HFlowContainer" unique_id=734661417]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_d13ii")
+theme_override_font_sizes/font_size = 30
+text = "17"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RunStatistics/HFlowContainer" unique_id=53801955]
+layout_mode = 2
+texture = ExtResource("23_d13ii")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/RunStatistics" unique_id=1716473539]
+layout_mode = 2
+theme_override_constants/margin_right = 7
+
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/RunStatistics/MarginContainer" unique_id=901958511]
+layout_mode = 2
+
+[node name="TotalTime" type="Label" parent="CanvasLayer/RunStatistics/MarginContainer/VFlowContainer" unique_id=1931775059]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_1u8w0")
+theme_override_font_sizes/font_size = 30
+text = "05:10.3"
+horizontal_alignment = 2

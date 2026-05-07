@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dtry6kpqdscla" path="res://Levels/Environment/LevelCompleteTrigger.cs" id="1_0p3q7"]
 [ext_resource type="Texture2D" uid="uid://cyp8okg5niwre" path="res://Art/exit_static.png" id="2_6q1vn"]
+[ext_resource type="Shader" uid="uid://u3rvbuu3oqcv" path="res://Effects/EmissiveTexture.gdshader" id="2_gfuei"]
 [ext_resource type="Texture2D" uid="uid://dv1l8xfd1y3jo" path="res://Art/exit_doors.png" id="3_0t6c8"]
+[ext_resource type="Texture2D" uid="uid://dsuj7gvfl50xi" path="res://Art/exit_static_emission.png" id="3_g0ji2"]
 [ext_resource type="Material" uid="uid://d8t336hyy8jd" path="res://Lighting/LightNoiseMaterial.tres" id="4_2fvnt"]
 [ext_resource type="Texture2D" uid="uid://c71wa7vt5da2o" path="res://Lighting/cone_c_blur.png" id="5_uqrwj"]
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="6_gfuei"]
@@ -10,6 +12,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w2c6"]
 size = Vector2(48, 58)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0ji2"]
+shader = ExtResource("2_gfuei")
+shader_parameter/emission_mask = ExtResource("3_g0ji2")
+shader_parameter/emission_color = Color(0.3882353, 0.96862745, 0.8784314, 1)
+shader_parameter/emission_strength = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_busyi"]
 atlas = ExtResource("3_0t6c8")
@@ -114,6 +122,7 @@ shape = SubResource("RectangleShape2D_2w2c6")
 disabled = true
 
 [node name="Static" type="Sprite2D" parent="." unique_id=300258637]
+material = SubResource("ShaderMaterial_g0ji2")
 position = Vector2(0, -32)
 texture = ExtResource("2_6q1vn")
 
@@ -124,6 +133,7 @@ sprite_frames = SubResource("SpriteFrames_ribrl")
 speed_scale = 7.5
 
 [node name="Label" type="Label" parent="." unique_id=2077539059]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -143,7 +153,7 @@ vertical_alignment = 1
 [node name="ConeLight" type="PointLight2D" parent="." unique_id=2110701566]
 z_index = 3
 material = ExtResource("4_2fvnt")
-position = Vector2(8.526513e-14, -16)
+position = Vector2(0, -14.5)
 rotation = -3.1415925
 scale = Vector2(0.855, 1)
 color = Color(1.309, 1.309, 1.309, 1)
