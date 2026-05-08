@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://casbkr58go41o" path="res://Audio/footstep05.ogg" id="8_getpj"]
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="9_82xsv"]
 [ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="9_hhcpw"]
+[ext_resource type="AudioStream" uid="uid://dpog4xx1eppoc" path="res://Audio/AMBIENCE_SciFi_Static_Tonal_loop_stereo.wav" id="10_lswn8"]
 [ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="10_mxvw5"]
 [ext_resource type="AudioStream" uid="uid://dh3ovbfjmk1s6" path="res://Audio/slide_loop_1.wav" id="11_82xsv"]
 [ext_resource type="Script" uid="uid://boocx0iplxa20" path="res://Audio/SoundManager.cs" id="17_yaehf"]
@@ -25,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bxbf112ef40s1" path="res://Art/backgrounds.png" id="22_ryguw"]
 [ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="23_1u8w0"]
 [ext_resource type="Texture2D" uid="uid://b3i26vwcefnj5" path="res://Art/skull.png" id="23_d13ii"]
+[ext_resource type="Texture2D" uid="uid://b4etch6yxks2q" path="res://Art/star.png" id="27_a6jrf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
 shader = ExtResource("9_hhcpw")
@@ -239,6 +241,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6jrf"]
+size = Vector2(16, 23)
+
 [sub_resource type="Gradient" id="Gradient_ryguw"]
 offsets = PackedFloat32Array(0, 0.10330579, 0.73140496, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8819366, 0.8819366, 0.88193655, 1, 1, 1, 1, 0)
@@ -334,10 +339,15 @@ size_flags_horizontal = 6
 size_flags_vertical = 2
 script = ExtResource("10_mxvw5")
 
-[node name="SoundManager" type="Node" parent="." unique_id=112119422]
+[node name="SoundManager" type="Node" parent="." unique_id=112119422 node_paths=PackedStringArray("musicStreamPlayer", "ambienceStreamPlayer")]
 script = ExtResource("17_yaehf")
+musicStreamPlayer = NodePath("AudioStreamPlayer_Music")
+ambienceStreamPlayer = NodePath("AudioStreamPlayer_Ambience")
 
 [node name="AudioStreamPlayer_Music" type="AudioStreamPlayer" parent="SoundManager" unique_id=1935058710]
+stream = ExtResource("10_lswn8")
+volume_db = -15.0
+autoplay = true
 
 [node name="AudioStreamPlayer_Ambience" type="AudioStreamPlayer" parent="SoundManager" unique_id=340774327]
 stream = ExtResource("21_ryguw")
@@ -350,8 +360,7 @@ Player = NodePath("Player")
 PlayerCamera = NodePath("PlayerCamera")
 InputBlockTimeAfterDeath = 0.1
 
-[node name="Player" type="CharacterBody2D" parent="PlayerController" unique_id=1367322353 node_paths=PackedStringArray("animatedSprite", "collisionShape2D", "StreamPlayer") groups=["Player"]]
-z_index = 99
+[node name="Player" type="CharacterBody2D" parent="PlayerController" unique_id=1367322353 node_paths=PackedStringArray("animatedSprite", "collisionShape2D", "StreamPlayer", "InteractionArea") groups=["Player"]]
 collision_mask = 193
 floor_constant_speed = true
 script = ExtResource("5_2gh4u")
@@ -365,6 +374,7 @@ JumpSound = ExtResource("7_074og")
 FootstepSound = ExtResource("8_getpj")
 StreamPlayer = NodePath("AudioStreamPlayer2D")
 FootstepFrequency = 0.4
+InteractionArea = NodePath("InteractionArea2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player" unique_id=476196997]
 position = Vector2(0, -8)
@@ -393,6 +403,12 @@ SizeVariation = 0.005
 stream = ExtResource("11_82xsv")
 volume_db = -10.0
 pitch_scale = 3.0
+
+[node name="InteractionArea2D" type="Area2D" parent="PlayerController/Player" unique_id=1930876941]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player/InteractionArea2D" unique_id=1736285740]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_a6jrf")
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerController" unique_id=497434114]
 zoom = Vector2(3, 3)
@@ -479,3 +495,71 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("22_d13ii")
 theme_override_font_sizes/font_size = 30
 text = "0"
+
+[node name="SaveStatistics" type="VBoxContainer" parent="CanvasLayer" unique_id=1350837358 node_paths=PackedStringArray("levelTimeLabel", "levelDeathsLabel")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -233.0
+offset_top = -116.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+script = ExtResource("22_0odxb")
+levelTimeLabel = NodePath("MarginContainer/VFlowContainer/SaveTime")
+levelDeathsLabel = NodePath("HFlowContainer/DeathCount")
+
+[node name="HFlowContainer2" type="HBoxContainer" parent="CanvasLayer/SaveStatistics" unique_id=1972272438]
+layout_mode = 2
+alignment = 2
+
+[node name="StarCount" type="Label" parent="CanvasLayer/SaveStatistics/HFlowContainer2" unique_id=1021792837]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_d13ii")
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Container" type="Control" parent="CanvasLayer/SaveStatistics/HFlowContainer2" unique_id=816125070]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SaveStatistics/HFlowContainer2/Container" unique_id=888106193]
+layout_mode = 0
+offset_left = 2.9999998
+offset_right = 36.0
+offset_bottom = 34.0
+scale = Vector2(0.8, 0.8)
+size_flags_horizontal = 4
+texture = ExtResource("27_a6jrf")
+
+[node name="HFlowContainer" type="HBoxContainer" parent="CanvasLayer/SaveStatistics" unique_id=556270802]
+layout_mode = 2
+alignment = 2
+
+[node name="DeathCount" type="Label" parent="CanvasLayer/SaveStatistics/HFlowContainer" unique_id=18669313]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("22_d13ii")
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SaveStatistics/HFlowContainer" unique_id=397755444]
+layout_mode = 2
+texture = ExtResource("23_d13ii")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SaveStatistics" unique_id=1315682433]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 7
+
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer/SaveStatistics/MarginContainer" unique_id=1215740142]
+layout_mode = 2
+
+[node name="SaveTime" type="Label" parent="CanvasLayer/SaveStatistics/MarginContainer/VFlowContainer" unique_id=1135437553]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_1u8w0")
+theme_override_font_sizes/font_size = 30
+text = "00:00.0"
+horizontal_alignment = 2

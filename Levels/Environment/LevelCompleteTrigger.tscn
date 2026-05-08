@@ -2,22 +2,27 @@
 
 [ext_resource type="Script" uid="uid://dtry6kpqdscla" path="res://Levels/Environment/LevelCompleteTrigger.cs" id="1_0p3q7"]
 [ext_resource type="Texture2D" uid="uid://cyp8okg5niwre" path="res://Art/exit_static.png" id="2_6q1vn"]
+[ext_resource type="AudioStream" uid="uid://buucfse23l5if" path="res://Audio/SPACE_SciFi_PassBy_Air_Smooth_Sweep_03_mono.wav" id="2_d6e3b"]
 [ext_resource type="Shader" uid="uid://u3rvbuu3oqcv" path="res://Effects/EmissiveTexture.gdshader" id="2_gfuei"]
+[ext_resource type="AudioStream" uid="uid://baleymvq225ae" path="res://Audio/close_door.wav" id="2_llx5h"]
 [ext_resource type="Texture2D" uid="uid://dv1l8xfd1y3jo" path="res://Art/exit_doors.png" id="3_0t6c8"]
 [ext_resource type="Texture2D" uid="uid://dsuj7gvfl50xi" path="res://Art/exit_static_emission.png" id="3_g0ji2"]
 [ext_resource type="Material" uid="uid://d8t336hyy8jd" path="res://Lighting/LightNoiseMaterial.tres" id="4_2fvnt"]
 [ext_resource type="Texture2D" uid="uid://c71wa7vt5da2o" path="res://Lighting/cone_c_blur.png" id="5_uqrwj"]
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="6_gfuei"]
 [ext_resource type="Texture2D" uid="uid://bkknhgp32m0ap" path="res://Lighting/shape_a.png" id="7_uqrwj"]
+[ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="8_5c4pl"]
+[ext_resource type="Texture2D" uid="uid://6bttyqx4nxjc" path="res://Player/Sprites/SPRITE_SHEET.png" id="13_uwy7f"]
+[ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="14_ne6cx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w2c6"]
 size = Vector2(48, 58)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0ji2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5bb0y"]
 shader = ExtResource("2_gfuei")
 shader_parameter/emission_mask = ExtResource("3_g0ji2")
-shader_parameter/emission_color = Color(0.3882353, 0.96862745, 0.8784314, 1)
-shader_parameter/emission_strength = 3.0
+shader_parameter/emission_color = Color(0, 6.840123, 4.712829, 1)
+shader_parameter/emission_strength = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_busyi"]
 atlas = ExtResource("3_0t6c8")
@@ -111,10 +116,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LevelCompleteTrigger" type="Area2D" unique_id=671268552 node_paths=PackedStringArray("animatedSprite")]
+[sub_resource type="Curve2D" id="Curve2D_kgu02"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 24, -16, 0, 0, 0, 0, 144, -16, 0, 0, 0, 0, 144, -112, 0, 0, 0, 0, 320, -112)
+}
+point_count = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ribrl"]
+atlas = ExtResource("13_uwy7f")
+region = Rect2(0, 0, 32, 32)
+
+[node name="LevelCompleteTrigger" type="Area2D" unique_id=671268552 node_paths=PackedStringArray("animatedSprite", "pathFollow2d")]
 collision_layer = 64
 script = ExtResource("1_0p3q7")
 animatedSprite = NodePath("Doors")
+pathFollow2d = NodePath("Path2D/PathFollow2D")
+TransitionTime = 1.5
+CloseDoorSound = ExtResource("2_llx5h")
+TubeAnimationSound = ExtResource("2_d6e3b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=56976601]
 position = Vector2(0, -29)
@@ -122,7 +141,7 @@ shape = SubResource("RectangleShape2D_2w2c6")
 disabled = true
 
 [node name="Static" type="Sprite2D" parent="." unique_id=300258637]
-material = SubResource("ShaderMaterial_g0ji2")
+material = SubResource("ShaderMaterial_5bb0y")
 position = Vector2(0, -32)
 texture = ExtResource("2_6q1vn")
 
@@ -137,15 +156,16 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -5.0
-offset_top = -48.0
-offset_right = 28.0
-offset_bottom = -25.0
+offset_left = -6.0
+offset_top = -48.000004
+offset_right = 38.0
+offset_bottom = -22.000004
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 theme_override_colors/font_color = Color(0, 18.892157, 18.892157, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("8_5c4pl")
+theme_override_font_sizes/font_size = 32
 text = "EXIT"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -178,3 +198,20 @@ shadow_filter_smooth = 1.0
 texture = ExtResource("7_uqrwj")
 texture_scale = 0.3
 script = ExtResource("6_gfuei")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1061257362]
+curve = SubResource("Curve2D_kgu02")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=258824774]
+visible = false
+position = Vector2(24, -16)
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D" unique_id=432534412]
+position = Vector2(0, 2)
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_ribrl")
+
+[node name="PointLight2D" type="PointLight2D" parent="Path2D/PathFollow2D/Sprite2D" unique_id=449131850]
+energy = 0.5
+texture = ExtResource("14_ne6cx")
+texture_scale = 0.1

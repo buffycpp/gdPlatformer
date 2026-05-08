@@ -53,6 +53,7 @@ public partial class PlayerController : SingletonNode<PlayerController>
 
     public void MovePlayerToSpawn()
     {
+        PlayerController.Instance.PlayerCamera.IsPaused = false;
         var position = new Vector2(0, 0);
         MoveTo(position, withCamera: true);
     }
@@ -92,6 +93,11 @@ public partial class PlayerController : SingletonNode<PlayerController>
     public void SignalLevelStart()
     {
         GameController.Instance.StartLevel();
+    }
+
+    public void TryInteract()
+    {
+        Player?.PlayerInteraction?.TriggerInteraction();
     }
 
     public override void _ExitTree()

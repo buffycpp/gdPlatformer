@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public partial class SoundManager : SingletonNode<SoundManager>
 {
 	[Export] public int PoolSize = 16;
+	[Export] public AudioStreamPlayer musicStreamPlayer;
+	[Export] public AudioStreamPlayer ambienceStreamPlayer;
 
 	private List<AudioStreamPlayer2D> _pool = new();
 	private Queue<AudioStreamPlayer2D> _available = new();

@@ -20,7 +20,7 @@ public partial class PlayerCamera : Camera2D
     private CharacterBody2D _player;
 
     private Vector2 _lookAheadOffset = Vector2.Zero;
-
+    public bool IsPaused {get; set;} = false;
     public override void _Ready()
     {
         _target = GetNode<Node2D>(TargetPath);
@@ -29,7 +29,7 @@ public partial class PlayerCamera : Camera2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_target == null) return;
+        if (_target == null || IsPaused) return;
 
         float dt = (float)delta;
 

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bofauilb6xmbl"]
+
+[ext_resource type="Texture2D" uid="uid://b4etch6yxks2q" path="res://Art/star.png" id="1_edqiw"]
+[ext_resource type="Script" uid="uid://c8jx35x21724c" path="res://Levels/CollectibleStar.cs" id="2_6genm"]
+[ext_resource type="PackedScene" uid="uid://cjfp8y63blwm3" path="res://Levels/Environment/CollectibleStarBurstParticles.tscn" id="2_kra34"]
+[ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="3_kra34"]
+[ext_resource type="AudioStream" uid="uid://dds48pqwdlhso" path="res://Audio/collect_star.wav" id="3_vw0x3"]
+[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="4_vw0x3"]
+[ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="5_3pash"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tetnq"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_edqiw"]
+offsets = PackedFloat32Array(0, 0.07024793, 0.838843, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.07058824, 0.07058824, 0.07058824, 1, 0.83890194, 0.83890194, 0.83890194, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6genm"]
+gradient = SubResource("Gradient_edqiw")
+
+[sub_resource type="CurveTexture" id="CurveTexture_kra34"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tetnq"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(16, 16, 16)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.59999996
+color = Color(0, 18.892157, 18.892157, 1)
+color_ramp = SubResource("GradientTexture1D_6genm")
+emission_curve = SubResource("CurveTexture_kra34")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edqiw"]
+size = Vector2(32, 32)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6genm"]
+light_mode = 1
+
+[node name="CollectibleStar" type="Area2D" unique_id=952074885]
+material = SubResource("CanvasItemMaterial_tetnq")
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_6genm")
+FloatHeight = 5.0
+burstParticlesScene = ExtResource("2_kra34")
+collectionSound = ExtResource("3_vw0x3")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=754882345]
+color = Color(0, 1, 1, 1)
+energy = 0.27
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("3_kra34")
+texture_scale = 1.5
+script = ExtResource("4_vw0x3")
+
+[node name="GPUParticles2DSparkle" type="GPUParticles2D" parent="." unique_id=2044303669]
+amount = 10
+texture = ExtResource("5_3pash")
+process_material = SubResource("ParticleProcessMaterial_tetnq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736642805]
+shape = SubResource("RectangleShape2D_edqiw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1675651028]
+material = SubResource("CanvasItemMaterial_6genm")
+texture = ExtResource("1_edqiw")

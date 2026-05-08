@@ -11,5 +11,10 @@ public class GameInputContext : IInputContext
 		{
 			PlayerController.Instance.TryJump();
 		}
+
+		if (Input.IsActionJustPressed("interact"))
+		{
+			PlayerController.Instance.TryInteract();
+		}
 	}
 }

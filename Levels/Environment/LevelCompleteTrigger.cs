@@ -4,7 +4,13 @@ using System;
 public partial class LevelCompleteTrigger : Area2D
 {
 	[Export] public AnimatedSprite2D animatedSprite;
+	[Export] public PathFollow2D pathFollow2d;
+	[Export] public float TransitionTime = 2f;
+	[Export] public AudioStream CloseDoorSound;
+	[Export] public AudioStream TubeAnimationSound;
 	private CollisionShape2D _collisionShape;
+	private float _animationProgress = 0;
+	private bool animatingPlayer = false;
 
 	public override void _Ready()
 	{
@@ -22,6 +28,24 @@ public partial class LevelCompleteTrigger : Area2D
 		BodyEntered += OnBodyEntered;
 	}
 
+    public override void _Process(double delta)
+    {
+        if (!animatingPlayer)
+		{
+			return;
+		}
+
+		_animationProgress += (float)delta;
+		float pathProgress = _animationProgress / TransitionTime;
+		pathFollow2d.Visible = true;
+		pathFollow2d.ProgressRatio = pathProgress;
+
+		if (pathProgress >= 1f)
+		{
+			animatingPlayer = false;
+		}
+    }
+
 	private void OnStartLevel()
 	{
 		_collisionShape.Disabled = false;
@@ -33,12 +57,20 @@ public partial class LevelCompleteTrigger : Area2D
 		{
 			PlayerController.Instance.WalkTo(GlobalPosition, () =>
 			{
+				GameController.Instance.SignalLevelComplete();
+				animatedSprite.ZIndex = 100;
+				animatedSprite.Play();		
+				SoundManager.Instance.PlaySfx(CloseDoorSound, GlobalPosition);
+
+				GetTree().CreateTimer(0.25f).Timeout += () =>
+				{
+					SoundManager.Instance.PlaySfx(TubeAnimationSound, GlobalPosition);					
+				};
+
 				GetTree().CreateTimer(0.5f).Timeout += () =>
 				{
-					GameController.Instance.SignalLevelComplete();
-					animatedSprite.ZIndex = 100;
-					animatedSprite.Play();									
-				};
+					animatingPlayer = true;		
+				};								
 			});
 		}
 	}

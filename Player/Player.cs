@@ -20,12 +20,14 @@ public partial class Player : CharacterBody2D
     // NEW: ground smoothing strength (very small = tight feel)
     [Export] public float GroundSmoothing = 18f;
     [Export] public AnimatedSprite2D animatedSprite;
-    [Export] public CollisionShape2D collisionShape2D;
-    public float AliveTime { get; set; } = 0;
+    [Export] public CollisionShape2D collisionShape2D;    
     [Export] public AudioStream JumpSound;
     [Export] public AudioStream FootstepSound;
     [Export] public AudioStreamPlayer2D StreamPlayer { get; set; }
     [Export] public float FootstepFrequency { get; set; } = 0.25f;
+    [Export] public Area2D InteractionArea {get; set;}
+    public PlayerInteraction PlayerInteraction;
+    public float AliveTime { get; set; } = 0;
 
     private float _wallJumpLockTimer = 0f;
     private bool _isWallSliding = false;
@@ -40,6 +42,11 @@ public partial class Player : CharacterBody2D
     //Input
     public float _xInput = 0;
     public bool _jumpQueued = false;
+
+    public override void _Ready()
+    {
+        PlayerInteraction = new PlayerInteraction(InteractionArea);
+    }
 
     public override void _PhysicsProcess(double delta)
     {

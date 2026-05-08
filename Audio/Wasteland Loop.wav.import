@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c10qssoy15jac"
+path="res://.godot/imported/Wasteland Loop.wav-e54e46cbe97dfcefdde4e81f721cc704.sample"
+
+[deps]
+
+source_file="res://Audio/Wasteland Loop.wav"
+dest_files=["res://.godot/imported/Wasteland Loop.wav-e54e46cbe97dfcefdde4e81f721cc704.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

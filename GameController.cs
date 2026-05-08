@@ -8,6 +8,7 @@ public partial class GameController : Node
 	public event Action StartLevelEvent;
 	public event Action PlayerDeathEvent;
 	public event Action LevelCompleteEvent;
+	public event Action ResetLevelEvent;
 
 	public static float GameTime { get; private set; }
 
@@ -81,7 +82,7 @@ public partial class GameController : Node
 		StopLevel();
 		LevelCompleteEvent?.Invoke();
 
-		GetTree().CreateTimer(1f).Timeout += () =>
+		GetTree().CreateTimer(1.5f).Timeout += () =>
 		{
 			ExecuteWithBlackscreen(0.25f,
 				duringBlackscreen: () =>
@@ -102,9 +103,10 @@ public partial class GameController : Node
 
 	public void ResetCurrentLevel()
 	{
+		ResetLevelEvent?.Invoke();
 		PlayerController.Instance.MovePlayerToSpawn();
 		PlayerController.Instance.ReleasePlayer();
-		EffectManager.Instance.GrayscaleEffect.Disable();
+		EffectManager.Instance.GrayscaleEffect.Disable();		
 	}
 
 	public void ResetCurrentLevelAfterDeath()
@@ -148,5 +150,10 @@ public partial class GameController : Node
 				Leave();
 			}
 		};
+	}
+
+	public void SignalStarCollected(CollectibleStar star)
+	{
+		
 	}
 }

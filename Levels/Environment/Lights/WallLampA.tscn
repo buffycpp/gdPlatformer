@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://wqpkrq632ssq"]
+
+[ext_resource type="Texture2D" uid="uid://j5uf6133f735" path="res://Art/atlas.png" id="1_2uunc"]
+[ext_resource type="Material" uid="uid://d8t336hyy8jd" path="res://Lighting/LightNoiseMaterial.tres" id="2_2i76h"]
+[ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="3_i4k2p"]
+[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="4_wq1m5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x1b8h"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaoe5"]
+atlas = ExtResource("1_2uunc")
+region = Rect2(192, 352, 32, 32)
+
+[node name="WallLampA" type="Node2D" unique_id=2112496895]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=165007673]
+material = SubResource("CanvasItemMaterial_x1b8h")
+texture = SubResource("AtlasTexture_xaoe5")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D" unique_id=1379132669]
+material = ExtResource("2_2i76h")
+rotation = 3.1415927
+color = Color(1.309, 1.309, 1.309, 1)
+energy = 0.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("3_i4k2p")
+script = ExtResource("4_wq1m5")
+Speed = 1.0
+EnergyVariation = 0.05
+SizeVariation = 0.05
