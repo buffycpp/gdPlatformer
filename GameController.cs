@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GameController : Node
+public partial class GameController : Node, ISaveable
 {
 	public static GameController Instance { get; private set; }
 
@@ -20,6 +20,7 @@ public partial class GameController : Node
 	public float LevelTime => GameTime - LevelStartTime;
 
 	public bool LevelRunning { get; private set; } = false;
+	public int CurrentLevelIndex { get; private set; } = 0;
 
 	public override void _EnterTree()
 	{
@@ -28,7 +29,7 @@ public partial class GameController : Node
 
 	public override void _Ready()
 	{
-		LevelManager.Instance.LoadLevelByIndex(0);
+		LevelManager.Instance.LoadLevelByIndex(CurrentLevelIndex);
 	}
 
 	public override void _Process(double delta)
@@ -156,4 +157,15 @@ public partial class GameController : Node
 	{
 		
 	}
+
+    public void OnSave(SavegameData save)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLoad(SavegameData save)
+    {
+        throw new NotImplementedException();
+    }
+
 }
