@@ -26,6 +26,8 @@ public partial class Player : CharacterBody2D
     [Export] public AudioStreamPlayer2D StreamPlayer { get; set; }
     [Export] public float FootstepFrequency { get; set; } = 0.25f;
     [Export] public Area2D InteractionArea {get; set;}
+    [Export] public PackedScene jumpVFXScene {get; set;}
+    [Export] public PackedScene stepVFXScene {get; set;}
     public PlayerInteraction PlayerInteraction;
     public float AliveTime { get; set; } = 0;
 
@@ -33,6 +35,7 @@ public partial class Player : CharacterBody2D
     private bool _isWallSliding = false;
     private float _lastDeathTime = 0;
     private float _deathTimer = 0;
+    private bool _wasOnFloor = false;
     public bool IsDead { get; private set; } = false;
     public bool IsDormant { get; private set; } = false;
     private Vector2? _moveDestination = null;
@@ -81,6 +84,8 @@ public partial class Player : CharacterBody2D
         Velocity = velocity;
         UpdateAnimation(velocity);
 
+        var wasOnFloor = IsOnFloor();
+
         MoveAndSlide();
 
         if (_moveDestination != null)
@@ -90,6 +95,13 @@ public partial class Player : CharacterBody2D
                 _moveDestination = null;
                 _onDestinationReached?.Invoke();
             }
+        }
+
+        if (!wasOnFloor && IsOnFloor())
+        {
+            // just landed
+
+            OnLanded();
         }
 
         HandleFootsteps(fDelta);
@@ -196,7 +208,7 @@ public partial class Player : CharacterBody2D
             if (onFloor)
             {
                 velocity.Y = JumpVelocity;
-                PlayJumpSFX();
+                PlayJumpSFX(isWallJump: false);
             }
             else if (_isWallSliding)
             {
@@ -207,7 +219,7 @@ public partial class Player : CharacterBody2D
 
                 _wallJumpLockTimer = WallJumpLockTime;
                 _isWallSliding = false;
-                PlayJumpSFX();
+                PlayJumpSFX(isWallJump: true);
             }
 
 
@@ -220,6 +232,8 @@ public partial class Player : CharacterBody2D
         {
             if (!StreamPlayer.Playing)
                 StreamPlayer.Play();
+
+            //animatedSprite.Play("wall_slide");
         }
         else
         {
@@ -229,6 +243,20 @@ public partial class Player : CharacterBody2D
 
         return velocity;
     }
+
+    private void OnLanded()
+    {
+        _footstepTimer = FootstepFrequency; // reset so we can play footstep immediately on landing if still moving
+
+        var vfx = (AnimatedSprite2D)stepVFXScene.Instantiate();
+        vfx.GlobalPosition = GlobalPosition + Vector2.Up * 16;
+        vfx.AnimationFinished += () =>
+        {
+            vfx.QueueFree();
+        };
+
+        GetTree().Root.AddChild(vfx);        
+    }    
 
     public void HandleFootsteps(float delta)
     {
@@ -246,12 +274,30 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    public void PlayJumpSFX()
+    public void PlayJumpSFX(bool isWallJump)
     {
         if (JumpSound != null)
         {
             SoundManager.Instance.PlaySfx(JumpSound, GlobalPosition, 0, (float)GD.RandRange(0.9, 1.1));
         }
+
+        var vfx = (AnimatedSprite2D)jumpVFXScene.Instantiate();
+        vfx.GlobalPosition = GlobalPosition + Vector2.Up * 16;
+
+        if (isWallJump)
+        {
+            vfx.GlobalRotation = GetWallNormal().X > 0 ? Mathf.DegToRad(90) : Mathf.DegToRad(-90);
+            vfx.GlobalPosition = GlobalPosition + GetWallNormal() * 10;
+        }
+
+        vfx.AnimationFinished += () =>
+        {
+            vfx.QueueFree();
+        };
+
+        GetTree().Root.AddChild(vfx);
+
+        animatedSprite.Play("jumping");
     }
 
     public void UpdateAnimation(Vector2 velocity)
@@ -266,9 +312,15 @@ public partial class Player : CharacterBody2D
             {
                 if (velocity.Y < 0)
                 {
-                    animatedSprite.Play("jumping");
+                    if (animatedSprite.Animation == "jumping" && animatedSprite.Frame > 3)
+                    {
+                        // keep playing jump anim until frame 2 for better jump feel
+                        //animatedSprite.Play("up");
+                        animatedSprite.Play("jumping");
+                    }
+
                 }
-                else if (velocity.Y > 0)
+                else if (velocity.Y > 0 && !_isWallSliding)
                 {
                     animatedSprite.Play("falling");
                 }
@@ -283,7 +335,13 @@ public partial class Player : CharacterBody2D
         }
 
         animatedSprite.FlipH = velocity.X < 0;
-        animatedSprite.Offset = animatedSprite.FlipH ? new Vector2(4, 0) : Vector2.Zero;
+
+        // if (_isWallSliding)
+        // {
+        //     animatedSprite.FlipH = !(GetWallNormal().X > 0);
+        // }
+
+        animatedSprite.Offset = animatedSprite.FlipH ? new Vector2(3, 0) : Vector2.Zero;
     }
 
     public void SetDormance(bool isDormant)

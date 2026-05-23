@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://c34rjthauqnbf"]
+
+[ext_resource type="Texture2D" uid="uid://bumsnv44m04li" path="res://Art/JumpVFX.png" id="1_gj1at"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu4lg"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jydl6"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy7os"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcn2u"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv824"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2462g"]
+atlas = ExtResource("1_gj1at")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmltr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu4lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jydl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy7os")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcn2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sv824")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2462g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="JumpVFX" type="AnimatedSprite2D" unique_id=1143214720]
+sprite_frames = SubResource("SpriteFrames_lmltr")
+autoplay = "default"
+frame = 5
+frame_progress = 1.0

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://sgvdb7xsyjd7"]
+
+[ext_resource type="Texture2D" uid="uid://c8q34acx77x42" path="res://Art/LandingVFX.png" id="1_vto4k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o2t7"]
+atlas = ExtResource("1_vto4k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpptc"]
+atlas = ExtResource("1_vto4k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dslb"]
+atlas = ExtResource("1_vto4k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvq5y"]
+atlas = ExtResource("1_vto4k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsmo0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2o2t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpptc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dslb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvq5y")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="StepVFX" type="AnimatedSprite2D" unique_id=1143214720]
+sprite_frames = SubResource("SpriteFrames_vsmo0")
+autoplay = "default"
+speed_scale = 2.5
