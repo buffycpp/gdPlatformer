@@ -678,11 +678,12 @@ color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
 [node name="StatisticsCanvasLayer" type="CanvasLayer" parent="." unique_id=911767256]
 
-[node name="LevelStatistics" type="VBoxContainer" parent="StatisticsCanvasLayer" unique_id=1103569587 node_paths=PackedStringArray("levelTimeLabel", "levelDeathsLabel")]
+[node name="LevelStatistics" type="VBoxContainer" parent="StatisticsCanvasLayer" unique_id=1103569587 node_paths=PackedStringArray("levelTextLabel", "levelTimeLabel", "levelDeathsLabel")]
 offset_top = 5.0
 offset_right = 233.0
 offset_bottom = 115.0
 script = ExtResource("26_bv80c")
+levelTextLabel = NodePath("MarginContainer/VFlowContainer/LevelText")
 levelTimeLabel = NodePath("MarginContainer/VFlowContainer/LevelTime")
 levelDeathsLabel = NodePath("HFlowContainer/DeathCount")
 
@@ -692,6 +693,15 @@ theme_override_constants/margin_left = 7
 
 [node name="VFlowContainer" type="VBoxContainer" parent="StatisticsCanvasLayer/LevelStatistics/MarginContainer" unique_id=868692341]
 layout_mode = 2
+
+[node name="LevelText" type="RichTextLabel" parent="StatisticsCanvasLayer/LevelStatistics/MarginContainer/VFlowContainer" unique_id=595451556]
+visible = false
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("27_ptfg5")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Level 1"
 
 [node name="LevelTime" type="RichTextLabel" parent="StatisticsCanvasLayer/LevelStatistics/MarginContainer/VFlowContainer" unique_id=1408260527]
 custom_minimum_size = Vector2(0, 24)

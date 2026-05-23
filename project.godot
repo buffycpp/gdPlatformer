@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 [autoload]
 
 SavegameManager="*uid://bcrarocp70p5q"
+EffectManager="*uid://bub530dkkytu1"
 
 [display]
 

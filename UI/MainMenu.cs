@@ -16,6 +16,7 @@ public partial class MainMenu : Node2D
 		if (SavegameManager.Instance.CurrentSave.CurrentRun != null)
 		{
 			ContinueButton.Disabled = false;
+			ContinueButton.Text = "Continue (Level " + (SavegameManager.Instance.CurrentSave.CurrentRun.CurrentLevel + 1) + ")";
 		}
 
 		ContinueButton.Pressed += OnContinuePressed;

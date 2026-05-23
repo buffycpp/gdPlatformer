@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 public partial class LevelStatistics : Node, ISaveable
 {
+	[Export] public RichTextLabel levelTextLabel;
 	[Export] public RichTextLabel levelTimeLabel;
 	[Export] public Label levelDeathsLabel;
 
@@ -26,11 +27,16 @@ public partial class LevelStatistics : Node, ISaveable
 		TotalLevelTime += GameController.Instance.LevelTime;
 	}
 
+	private void UpdateLabels()
+	{
+		levelTextLabel.Text = "Level " + (GameController.Instance.CurrentLevelIndex + 1);
+		levelDeathsLabel.Text = _deathCount.ToString();
+	}
 
 	private void OnPlayerDeath()
 	{
 		_deathCount++;
-		levelDeathsLabel.Text = _deathCount.ToString();		
+		UpdateLabels();
 	}
 	
 	public override void _Process(double delta)
@@ -49,7 +55,7 @@ public partial class LevelStatistics : Node, ISaveable
 	{
 		_deathCount = (save.CurrentRun?.LevelDeaths).GetValueOrDefault(0);
 		TotalLevelTime = (save.CurrentRun?.TotalTime).GetValueOrDefault(0);
-		levelDeathsLabel.Text = _deathCount.ToString();
+		UpdateLabels();
 	}
 
 }

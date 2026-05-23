@@ -30,6 +30,7 @@ public partial class GameController : Node, ISaveable
 
 	public override void _Ready()
 	{
+		SavegameManager.Instance.BroadcastLoadEvent();
 		LevelManager.Instance.LoadLevelByIndex(CurrentLevelIndex);
 	}
 
