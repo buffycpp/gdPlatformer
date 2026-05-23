@@ -1,0 +1,24 @@
+[gd_resource type="Theme" format=3 uid="uid://ck107u5quxldh"]
+
+[ext_resource type="FontFile" uid="uid://ph44g1byfkg" path="res://Font/Jersey10-Regular.ttf" id="1_d72k3"]
+[ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="2_u07aq"]
+[ext_resource type="StyleBox" uid="uid://ck6g86dfs353x" path="res://UI/WindowStyleBoxFlat.tres" id="3_u07aq"]
+
+[sub_resource type="FontVariation" id="FontVariation_ghw46"]
+base_font = ExtResource("1_d72k3")
+spacing_top = -5
+spacing_bottom = -5
+
+[sub_resource type="FontVariation" id="FontVariation_d72k3"]
+base_font = ExtResource("1_d72k3")
+spacing_top = -5
+spacing_bottom = -5
+
+[resource]
+Button/font_sizes/font_size = 30
+Button/fonts/font = SubResource("FontVariation_ghw46")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("2_u07aq")
+Window/font_sizes/title_font_size = 30
+Window/fonts/title_font = SubResource("FontVariation_d72k3")
+Window/styles/panel = ExtResource("3_u07aq")

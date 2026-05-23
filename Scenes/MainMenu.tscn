@@ -1,16 +1,18 @@
 [gd_scene format=3 uid="uid://4b5mnyuen0yh"]
 
 [ext_resource type="Script" uid="uid://bh37fbr05ur11" path="res://UI/MainMenu.cs" id="1_8saeu"]
+[ext_resource type="Theme" uid="uid://ck107u5quxldh" path="res://UI/DefaultTheme.tres" id="3_8saeu"]
 [ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="3_df05h"]
 
 [sub_resource type="Theme" id="Theme_i26rj"]
 
-[node name="MainMenu" type="Node2D" unique_id=579489451 node_paths=PackedStringArray("ContinueButton", "NewGameButton", "SettingsButton", "ExitButton")]
+[node name="MainMenu" type="Node2D" unique_id=579489451 node_paths=PackedStringArray("ContinueButton", "NewGameButton", "SettingsButton", "ExitButton", "NewGameConfirmationDialog")]
 script = ExtResource("1_8saeu")
 ContinueButton = NodePath("CanvasLayer/Panel/VBoxContainer/ButtonContinue")
 NewGameButton = NodePath("CanvasLayer/Panel/VBoxContainer/ButtonNewGame")
 SettingsButton = NodePath("CanvasLayer/Panel/VBoxContainer/ButtonSettings")
 ExitButton = NodePath("CanvasLayer/Panel/VBoxContainer/ButtonExit")
+NewGameConfirmationDialog = NodePath("ConfirmationDialog")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=423703883]
 
@@ -65,3 +67,11 @@ theme_override_fonts/font = ExtResource("3_df05h")
 theme_override_font_sizes/font_size = 30
 text = "Exit
 "
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=2015167010]
+title = ""
+unresizable = true
+borderless = true
+theme = ExtResource("3_8saeu")
+ok_button_text = "Yes"
+cancel_button_text = "No"

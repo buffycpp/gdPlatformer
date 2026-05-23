@@ -7,6 +7,7 @@ public partial class MainMenu : Node2D
 	[Export] public Button NewGameButton { get; private set; }
 	[Export] public Button SettingsButton { get; private set; }
 	[Export] public Button ExitButton { get; private set; }
+	[Export] public ConfirmationDialog NewGameConfirmationDialog { get; private set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -39,12 +40,30 @@ public partial class MainMenu : Node2D
 
 	private void OnNewGamePressed()
 	{
+		if (SavegameManager.Instance.CurrentSave.CurrentRun != null)
+		{
+			string text = "Are you sure you want to start a new game?\nYour current progress will be lost.";
+			NewGameConfirmationDialog.DialogText = text;
+			NewGameConfirmationDialog.GetLabel().HorizontalAlignment = HorizontalAlignment.Center;
+			NewGameConfirmationDialog.Confirmed += TriggerNewGameStart;
+			NewGameConfirmationDialog.PopupCentered();
+		}
+		else
+		{
+			TriggerNewGameStart();
+		}
+
+
+
+	}
+
+	private void TriggerNewGameStart()
+	{
 		EffectManager.Instance.ExecuteWithBlackscreen(0.25f, duringBlackscreen: () =>
 		{
 			SavegameManager.Instance.CurrentSave.StartNewGame();
 			GetTree().ChangeSceneToFile("res://Scenes/main.tscn");
 		});
-
 	}
 
 
