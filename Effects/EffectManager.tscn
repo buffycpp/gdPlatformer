@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bub530dkkytu1"]
+
+[ext_resource type="Script" uid="uid://brumvfyft1hkj" path="res://Effects/EffectManager.cs" id="1_fplgm"]
+[ext_resource type="Script" uid="uid://doyt1oaundevh" path="res://Effects/BlackscreenEffect.cs" id="2_1iauw"]
+[ext_resource type="Shader" uid="uid://dt7wie38hp62y" path="res://Player/DeathEffect/DeathEffect.gdshader" id="3_yj7nw"]
+[ext_resource type="Script" uid="uid://ca6jth02jas6j" path="res://Effects/GrayscaleEffect.cs" id="4_fc25u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
+shader = ExtResource("3_yj7nw")
+shader_parameter/strength = 1.0
+
+[node name="EffectManager" type="Node" unique_id=1635034682 node_paths=PackedStringArray("BlackscreenEffect", "GrayscaleEffect")]
+script = ExtResource("1_fplgm")
+BlackscreenEffect = NodePath("CanvasLayer/BlackscreenEffect")
+GrayscaleEffect = NodePath("CanvasLayer/GrayscaleEffect")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1664912585]
+layer = 2
+
+[node name="BlackscreenEffect" type="ColorRect" parent="CanvasLayer" unique_id=1899475574]
+visible = false
+z_index = 1000
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_1iauw")
+
+[node name="GrayscaleEffect" type="ColorRect" parent="CanvasLayer" unique_id=451826866]
+visible = false
+z_index = 1000
+material = SubResource("ShaderMaterial_2cqfq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+script = ExtResource("4_fc25u")

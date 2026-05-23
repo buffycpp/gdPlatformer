@@ -14,7 +14,7 @@ public partial class GameController : Node, ISaveable
 
 	public float TimeScale { get; set; } = 1f;
 
-	// Level timing
+	// Level
 	public float LevelStartTime { get; private set; }
 
 	public float LevelTime => GameTime - LevelStartTime;
@@ -25,6 +25,7 @@ public partial class GameController : Node, ISaveable
 	public override void _EnterTree()
 	{
 		Instance = this;
+		this.SubscribeAsSaveable();
 	}
 
 	public override void _Ready()
@@ -85,9 +86,11 @@ public partial class GameController : Node, ISaveable
 
 		GetTree().CreateTimer(1.5f).Timeout += () =>
 		{
-			ExecuteWithBlackscreen(0.25f,
+			EffectManager.Instance.ExecuteWithBlackscreen(0.25f,
 				duringBlackscreen: () =>
 				{
+					CurrentLevelIndex++;
+					SavegameManager.Instance.TriggerAutosave();
 					LevelManager.Instance.LoadNextLevel();
 					PlayerController.Instance.MovePlayerToSpawn();
 				},
@@ -108,11 +111,13 @@ public partial class GameController : Node, ISaveable
 		PlayerController.Instance.MovePlayerToSpawn();
 		PlayerController.Instance.ReleasePlayer();
 		EffectManager.Instance.GrayscaleEffect.Disable();		
+		LevelStartTime = GameTime;
+		SavegameManager.Instance.TriggerAutosave();
 	}
 
 	public void ResetCurrentLevelAfterDeath()
 	{
-		ExecuteWithBlackscreen(0.25f,
+		EffectManager.Instance.ExecuteWithBlackscreen(0.25f,
 			duringBlackscreen: ResetCurrentLevel,
 			afterBlackscreen: () =>
 			{
@@ -121,51 +126,21 @@ public partial class GameController : Node, ISaveable
 		);
 	}
 
-	public void ExecuteWithBlackscreen(
-		float fadeTime,
-		Action duringBlackscreen,
-		Action afterBlackscreen = null,
-		float fakeDelay = 0
-	)
-	{
-		void Leave()
-		{
-			EffectManager.Instance.BlackscreenEffect.Disable(fadeTime);
 
-			if (afterBlackscreen != null)
-			{
-				GetTree().CreateTimer(fadeTime).Timeout += afterBlackscreen;
-			}
-		}
-
-		EffectManager.Instance.BlackscreenEffect.Enable(fadeTime);
-		GetTree().CreateTimer(fadeTime).Timeout += () =>
-		{
-			duringBlackscreen?.Invoke();
-			if (fakeDelay > 0)
-			{
-				GetTree().CreateTimer(fakeDelay).Timeout += Leave;
-			}
-			else
-			{
-				Leave();
-			}
-		};
-	}
 
 	public void SignalStarCollected(CollectibleStar star)
 	{
 		
 	}
 
-    public void OnSave(SavegameData save)
-    {
-        throw new NotImplementedException();
-    }
+	public void OnSave(SavegameData save)
+	{
+		save.CurrentRun.CurrentLevel = CurrentLevelIndex;
+	}
 
-    public void OnLoad(SavegameData save)
-    {
-        throw new NotImplementedException();
-    }
+	public void OnLoad(SavegameData save)
+	{
+		CurrentLevelIndex = (save.CurrentRun?.CurrentLevel).GetValueOrDefault(0);
+	}
 
 }

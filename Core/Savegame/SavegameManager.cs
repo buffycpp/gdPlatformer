@@ -8,10 +8,32 @@ public partial class SavegameManager : SingletonNode<SavegameManager>
     public event Action<SavegameData> OnLoadEvent;
     public SavegameData CurrentSave { get; private set; }
     private string _saveId = "1"; //This should probably be set to accountId later
+    private bool _autosaveEnabled = true;
 
     private string GetSavePath(string saveId)
     {
         return $"user://save_{saveId}.json";
+    }
+
+    public override void _Ready()
+    {        
+        Initialise();
+    }
+
+    public void Initialise()
+    {
+        try
+        {
+            Load();
+            GD.Print("Savegame loaded successfully.");
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"Failed to load savegame: {e.Message}");
+            GD.Print("Starting new savegame.");
+            CurrentSave = new SavegameData();
+            BroadcastLoadEvent();
+        }
     }
 
     public void Save()
@@ -48,6 +70,21 @@ public partial class SavegameManager : SingletonNode<SavegameManager>
 
         CurrentSave = JsonSerializer.Deserialize<SavegameData>(json);
 
+        BroadcastLoadEvent();
+    }
+
+    public void BroadcastLoadEvent()
+    {
         OnLoadEvent?.Invoke(CurrentSave);
+        GD.Print("Game-load broadcasted");
+    }
+
+    public void TriggerAutosave()
+    {
+        if (_autosaveEnabled)
+        {
+            Save();
+            GD.Print("Game autosaved.");
+        }
     }
 }

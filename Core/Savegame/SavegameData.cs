@@ -3,22 +3,27 @@ using Godot;
 
 public class CurrentRunSavegameData
 {
-    public int CurrentLevel = 0;
-    public int LevelDeaths = 0;
-    public float TotalTime = 0;
-    public int TotalDeaths = 0;
-    public List<string> CollectedStars = [];
+    public int CurrentLevel {get; set;} = 0;
+    public int LevelDeaths {get; set;} = 0;
+    public float TotalTime {get; set;} = 0;
+    public int TotalDeaths {get; set;} = 0;
+    public List<string> CollectedStars {get; set;} = [];
 }
 
-public partial class SavegameData : Resource
+public class SavegameData
 {
     public CurrentRunSavegameData CurrentRun { get; set; } = null;
     public float TotalTime { get; set; } = 0;
     public int TotalDeaths { get; set; } = 0;
-    public List<string> CollectedStars = [];
+    public List<string> CollectedStars {get; set;} = [];
 
     public SavegameData()
     {
 
+    }
+
+    public void StartNewGame()
+    {
+        CurrentRun = new CurrentRunSavegameData();
     }
 }

@@ -53,7 +53,7 @@ public partial class PlayerController : SingletonNode<PlayerController>
 
     public void MovePlayerToSpawn()
     {
-        PlayerController.Instance.PlayerCamera.IsPaused = false;
+        PlayerCamera.IsPaused = false;
         var position = new Vector2(0, 0);
         MoveTo(position, withCamera: true);
     }
