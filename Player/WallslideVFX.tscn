@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bjw5kb4qv57e7"]
+
+[ext_resource type="Texture2D" uid="uid://cbfj1hmtc2a6m" path="res://Art/WalSlideLeft.png" id="1_xowr2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdjgs"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idnk7"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c635a"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8uo6"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84wa6"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13dlc"]
+atlas = ExtResource("1_xowr2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsmo0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdjgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idnk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c635a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8uo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84wa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13dlc")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="WallslideLVFX" type="AnimatedSprite2D" unique_id=1143214720]
+z_index = 1000
+sprite_frames = SubResource("SpriteFrames_vsmo0")
+autoplay = "default"
+frame = 3
+frame_progress = 0.76009697
+speed_scale = 2.5

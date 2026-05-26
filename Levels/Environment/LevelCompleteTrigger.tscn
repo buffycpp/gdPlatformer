@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="6_gfuei"]
 [ext_resource type="Texture2D" uid="uid://bkknhgp32m0ap" path="res://Lighting/shape_a.png" id="7_uqrwj"]
 [ext_resource type="FontVariation" uid="uid://l4wa08pn4ttr" path="res://Font/30pxVariation.tres" id="8_5c4pl"]
-[ext_resource type="Texture2D" uid="uid://6bttyqx4nxjc" path="res://Player/Sprites/SPRITE_SHEET.png" id="13_uwy7f"]
+[ext_resource type="Texture2D" uid="uid://ckal3qu1h0ebl" path="res://Art/SpaceGirl16x16.png" id="13_uwy7f"]
 [ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="14_ne6cx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2w2c6"]
@@ -124,7 +124,7 @@ point_count = 4
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ribrl"]
 atlas = ExtResource("13_uwy7f")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 16, 16)
 
 [node name="LevelCompleteTrigger" type="Area2D" unique_id=671268552 node_paths=PackedStringArray("animatedSprite", "pathFollow2d")]
 collision_layer = 64
