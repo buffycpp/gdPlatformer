@@ -403,7 +403,7 @@ wallslideRParticles = NodePath("GPUParticles2D_WallSlideR")
 position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_xuqvo")
 
-[node name="PointLight2D" type="PointLight2D" parent="PlayerController/Player" unique_id=58554901]
+[node name="PlayerLight" type="PointLight2D" parent="PlayerController/Player" unique_id=58554901]
 position = Vector2(0, -8)
 energy = 0.5
 shadow_enabled = true
