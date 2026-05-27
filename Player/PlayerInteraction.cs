@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class PlayerInteraction
+public partial class PlayerInteraction : Node
 {
+    [Export] public Area2D InteractionArea { get; set; }
     private List<IInteractable> _interactables = new();
 
-    public PlayerInteraction(Area2D interactionArea)
+    public override void _Ready()
     {
-        interactionArea.AreaEntered += OnInteractionAreaEntered;
-        interactionArea.AreaExited += OnInteractionAreaExited;
+        InteractionArea.AreaEntered += OnInteractionAreaEntered;
+        InteractionArea.AreaExited += OnInteractionAreaExited;        
     }
 
     private void OnInteractionAreaExited(Area2D area)
@@ -30,7 +31,9 @@ public class PlayerInteraction
         {
             GD.Print("Added: " + area.Name);
             _interactables.Add(interactable);
-        }        
+        }
+
+        CallDeferred(nameof(TriggerInteraction));
     }
 
     public void TriggerInteraction()

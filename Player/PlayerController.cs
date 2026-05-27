@@ -97,7 +97,7 @@ public partial class PlayerController : SingletonNode<PlayerController>
 
     public void TryInteract()
     {
-        Player?.PlayerInteraction?.TriggerInteraction();
+        // Player?.PlayerInteraction?.TriggerInteraction();
     }
 
     public override void _ExitTree()

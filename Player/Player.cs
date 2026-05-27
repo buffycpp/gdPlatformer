@@ -30,7 +30,6 @@ public partial class Player : CharacterBody2D
     [Export] public PackedScene stepVFXScene {get; set;}
     [Export] public GpuParticles2D wallslideLParticles {get; set;}
     [Export] public GpuParticles2D wallslideRParticles {get; set;}
-    public PlayerInteraction PlayerInteraction;
     public float AliveTime { get; set; } = 0;
 
     private float _wallJumpLockTimer = 0f;
@@ -50,7 +49,6 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
-        PlayerInteraction = new PlayerInteraction(InteractionArea);
     }
 
     public override void _PhysicsProcess(double delta)
