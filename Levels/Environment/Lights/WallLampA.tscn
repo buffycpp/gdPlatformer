@@ -18,7 +18,7 @@ region = Rect2(192, 352, 32, 32)
 material = SubResource("CanvasItemMaterial_x1b8h")
 texture = SubResource("AtlasTexture_xaoe5")
 
-[node name="PointLight2D" type="PointLight2D" parent="Sprite2D" unique_id=1379132669]
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D" unique_id=1379132669 groups=["Light"]]
 material = ExtResource("2_2i76h")
 rotation = 3.1415927
 color = Color(1.309, 1.309, 1.309, 1)

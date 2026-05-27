@@ -11,11 +11,11 @@
 [ext_resource type="Script" uid="uid://xftkjey1341i" path="res://Player/Player.cs" id="13_o1aky"]
 [ext_resource type="AudioStream" uid="uid://di8blom6q8wjs" path="res://Audio/jump.wav" id="14_kwxat"]
 [ext_resource type="AudioStream" uid="uid://casbkr58go41o" path="res://Audio/footstep05.ogg" id="15_aa8k8"]
+[ext_resource type="Script" uid="uid://bowijssv4mrlo" path="res://Player/PlayerLight.cs" id="15_u50mg"]
 [ext_resource type="PackedScene" uid="uid://c34rjthauqnbf" path="res://Player/JumpVFX.tscn" id="16_kqrg6"]
 [ext_resource type="PackedScene" uid="uid://sgvdb7xsyjd7" path="res://Player/StepVFX.tscn" id="17_nwwfm"]
 [ext_resource type="Texture2D" uid="uid://ckal3qu1h0ebl" path="res://Art/SpaceGirl16x16.png" id="19_1w6v2"]
 [ext_resource type="Texture2D" uid="uid://b5vn4ca47k0qi" path="res://Lighting/shape_b.png" id="19_jut3y"]
-[ext_resource type="Script" uid="uid://3efash3os3pp" path="res://Lighting/LightEffect.cs" id="20_v2nl5"]
 [ext_resource type="AudioStream" uid="uid://dh3ovbfjmk1s6" path="res://Audio/slide_loop_1.wav" id="21_dmskm"]
 [ext_resource type="Script" uid="uid://dfmkdpkq2e713" path="res://Player/PlayerCamera.cs" id="23_54nrm"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="24_55jeb"]
@@ -410,7 +410,8 @@ shadow_filter = 1
 shadow_filter_smooth = 1.0
 texture = ExtResource("19_jut3y")
 texture_scale = 0.25
-script = ExtResource("20_v2nl5")
+script = ExtResource("15_u50mg")
+DimDistance = 64.0
 Speed = 5.0
 SizeVariation = 0.005
 

@@ -7,17 +7,21 @@ public partial class LightEffect : PointLight2D
 	[Export] public float EnergyVariation = 0.015f;
 	[Export] public float SizeVariation = 0.015f;
 
+	// Absolute brightness value
+	public float TargetEnergy = 1f;
+
 	private float _time;
-	private float _baseEnergy;
 	private float _baseScale;
 	private float _offset;
 
 	public override void _Ready()
 	{
-		_baseEnergy = Energy;
 		_baseScale = TextureScale;
 
-		// Unique offset so multiple lights don't sync
+		// Start from current editor value
+		TargetEnergy = Energy;
+
+		// Unique offset so lights don't sync
 		_offset = GD.Randf() * 1000f;
 	}
 
@@ -27,7 +31,10 @@ public partial class LightEffect : PointLight2D
 
 		float wave = Mathf.Sin(_time * Speed + _offset);
 
-		Energy = _baseEnergy + wave * EnergyVariation;
+		// Flickering energy
+		Energy = TargetEnergy + wave * EnergyVariation;
+
+		// Flickering size
 		TextureScale = _baseScale + wave * SizeVariation;
 	}
 }
