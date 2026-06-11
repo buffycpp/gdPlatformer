@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://p2d3shi6mvdu"]
+
+[ext_resource type="Shader" uid="uid://c3yl8xdsq54gh" path="res://Effects/AO/AO.gdshader" id="1_4jon0"]
+[ext_resource type="Script" uid="uid://dhx6wqte4bgpm" path="res://Effects/AO/AOLayer.cs" id="2_7xm64"]
+[ext_resource type="PackedScene" uid="uid://ca5pvavrl28nh" path="res://Effects/AO/AOViewport.tscn" id="3_7xm64"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tetnq"]
+shader = ExtResource("1_4jon0")
+shader_parameter/strength = 1.0
+shader_parameter/radius = 10.0
+shader_parameter/falloff = 1.5
+shader_parameter/inner_strength = 1.0
+shader_parameter/outer_strength = 0.5
+
+[node name="AOLayer" type="Sprite2D" unique_id=2044673814]
+z_index = 1
+material = SubResource("ShaderMaterial_tetnq")
+script = ExtResource("2_7xm64")
+AOViewportScene = ExtResource("3_7xm64")
