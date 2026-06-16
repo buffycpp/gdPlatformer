@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dx1kkfkc8pmxs"]
+
+[ext_resource type="Script" uid="uid://c8waw2w2tt02c" path="res://Levels/Environment/TriggerArea.cs" id="1_c8d2p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqpon"]
+
+[node name="TriggerArea" type="Area2D" unique_id=1587504084]
+script = ExtResource("1_c8d2p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1553861367]
+shape = SubResource("RectangleShape2D_yqpon")

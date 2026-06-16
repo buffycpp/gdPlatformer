@@ -41,20 +41,29 @@ public partial class LevelManager : Node
 			return;
 		}
 
+		GD.Print($"Spawning level: {levelData.Id}");
+
 		activeLevel = levelData.LevelScene.Instantiate<Node2D>();
 		ActiveLevelContainer.AddChild(activeLevel);
+		GD.Print($"Loaded level: {levelData.Id}");
 	}
 
 	public void LoadLevelByIndex(int index)
 	{
+		GD.Print($"Attempting to load level at index: {index}");
 		if (ActiveLevelList?.Levels == null)
+		{
+			GD.PrintErr("No levels assigned in LevelList!");
 			return;
+		}
 
-		if (index < 0 || index >= ActiveLevelList.Levels.Length)
+		if (index < 0 || index >= ActiveLevelList.Levels?.Length)
 		{
 			GD.PrintErr($"Invalid level index: {index}");
 			return;
 		}
+
+		GD.Print($"Loading level at index: {index}");
 
 		ClearCurrentLevel();
 

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cvlmmp7oc57rq"]
+
+[ext_resource type="Script" uid="uid://cwmg4mmbuk4dg" path="res://Levels/Environment/Switch/Switch.cs" id="1_dfd4m"]
+[ext_resource type="AudioStream" uid="uid://yo0rbh27hbpm" path="res://Audio/switch.wav" id="2_vev01"]
+[ext_resource type="Shader" uid="uid://u3rvbuu3oqcv" path="res://Effects/EmissiveTexture.gdshader" id="3_auu3p"]
+[ext_resource type="Texture2D" uid="uid://6xx2he5pcr3t" path="res://Art/switch_emission_on.png" id="4_87va8"]
+[ext_resource type="Texture2D" uid="uid://b0lqov2g8br7a" path="res://Art/switch.png" id="5_lb7p7"]
+[ext_resource type="Texture2D" uid="uid://blbrhxndyi30j" path="res://Art/switch_emission_off.png" id="6_84yls"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x7nng"]
+shader = ExtResource("3_auu3p")
+shader_parameter/emission_mask = ExtResource("4_87va8")
+shader_parameter/emission_color = Color(0, 1.4134804, 1.4709189, 1)
+shader_parameter/emission_strength = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4yfo"]
+shader = ExtResource("3_auu3p")
+shader_parameter/emission_mask = ExtResource("6_84yls")
+shader_parameter/emission_color = Color(2.9289904, 0, 0, 1)
+shader_parameter/emission_strength = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfjk5"]
+size = Vector2(32, 32)
+
+[node name="Switch" type="Area2D" unique_id=1172386124 node_paths=PackedStringArray("OnSprite", "OffSprite", "TriggerableNode") groups=["Interactable"]]
+script = ExtResource("1_dfd4m")
+OnSprite = NodePath("SpriteOn")
+OffSprite = NodePath("SpriteOff")
+ToggleSound = ExtResource("2_vev01")
+TriggerableNode = NodePath("")
+
+[node name="SpriteOn" type="Sprite2D" parent="." unique_id=1886392380]
+visible = false
+material = SubResource("ShaderMaterial_x7nng")
+texture = ExtResource("5_lb7p7")
+
+[node name="SpriteOff" type="Sprite2D" parent="." unique_id=1580000040]
+material = SubResource("ShaderMaterial_s4yfo")
+texture = ExtResource("5_lb7p7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2019232311]
+shape = SubResource("RectangleShape2D_pfjk5")

@@ -3,8 +3,9 @@
 [ext_resource type="Resource" uid="uid://dtkr86k87rcgo" path="res://Levels/Data/Level1.tres" id="1_findh"]
 [ext_resource type="Script" uid="uid://d2lkr0v4x1mif" path="res://Levels/LevelList.cs" id="2_findh"]
 [ext_resource type="Resource" uid="uid://p4ml884ki3x3" path="res://Levels/Data/Level2.tres" id="2_nilr8"]
+[ext_resource type="Resource" uid="uid://de3edegvibrwe" path="res://Levels/Data/Level3.tres" id="3_nilr8"]
 
 [resource]
 script = ExtResource("2_findh")
-Levels = Array[Object]([ExtResource("1_findh"), ExtResource("2_nilr8")])
+Levels = Array[Object]([ExtResource("1_findh"), ExtResource("2_nilr8"), ExtResource("3_nilr8")])
 metadata/_custom_type_script = "uid://d2lkr0v4x1mif"
