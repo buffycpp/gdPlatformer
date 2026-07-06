@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dg1rxvnkamxpr"]
+
+[ext_resource type="Script" uid="uid://bkldiyv7p2mg3" path="res://Levels/Environment/Props/Platforms/DynamicPlatform.cs" id="1_qvgrc"]
+[ext_resource type="Texture2D" uid="uid://csct5itheub47" path="res://Art/noise1.tres" id="2_af6l2"]
+[ext_resource type="AudioStream" uid="uid://dbs6m0mtq45hb" path="res://Audio/Pop 31.wav" id="3_313h7"]
+[ext_resource type="AudioStream" uid="uid://0vnx4bs0usl0" path="res://Audio/SPACECRAFT_Glitch_12_Rhythmic_Noise_loop_mono.wav" id="4_313h7"]
+[ext_resource type="Texture2D" uid="uid://n116ltbx2rdd" path="res://Art/dynamicplatform.png" id="4_af6l2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23ujw"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvgrc"]
+size = Vector2(32, 5)
+
+[node name="DynamicPlatform" type="Area2D" unique_id=1630382645 node_paths=PackedStringArray("collisionShape2D", "sprite2D", "audioStreamPlayer2D")]
+script = ExtResource("1_qvgrc")
+collisionShape2D = NodePath("Sprite2D/StaticBody2D/CollisionShape2D")
+sprite2D = NodePath("Sprite2D")
+noiseTexture = ExtResource("2_af6l2")
+audioStreamPlayer2D = NodePath("AudioStreamPlayer2D")
+breakSound = ExtResource("3_313h7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1003167162]
+rotation = -3.1415925
+texture = ExtResource("4_af6l2")
+region_rect = Rect2(-0.35890198, 9.892841, 30.84346, 22.431602)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D" unique_id=1551370712]
+position = Vector2(-1.2079664e-06, -8)
+rotation = 3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D" unique_id=1286269717]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_23ujw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1284478619]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_qvgrc")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=46150812]
+stream = ExtResource("4_313h7")
+volume_db = -5.0
+pitch_scale = 3.0
+bus = &"SFX"
