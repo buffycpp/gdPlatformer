@@ -12,10 +12,10 @@ public partial class Door : StaticBody2D, ITriggerable
 		GameController.Instance.ResetLevelEvent += OnResetLevel;
 	}
 
-    private void OnResetLevel()
-    {
-        Close();
-    }
+	private void OnResetLevel()
+	{
+		Close();
+	}
 
 
 	public void Open()
@@ -31,15 +31,15 @@ public partial class Door : StaticBody2D, ITriggerable
 		collisionShape2D.Disabled = false;
 	}
 
-    public bool CanTrigger()
-    {
-        return animatedSprite2D.Animation == "closed";
-    }
+	public bool CanTrigger()
+	{
+		return animatedSprite2D.Animation == "closed";
+	}
 
-    public void Trigger()
-    {
-        Open();
-    }
+	public void Trigger(string actionName)
+	{
+		Open();
+	}
 
 	public override void _ExitTree()
 	{

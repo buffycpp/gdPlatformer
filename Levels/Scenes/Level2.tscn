@@ -8,7 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://cjffeqi2x4rt0" path="res://Levels/Environment/LevelCompleteTrigger.tscn" id="5_7r5s1"]
 [ext_resource type="PackedScene" uid="uid://bofauilb6xmbl" path="res://Levels/Environment/CollectibleStar.tscn" id="6_1j710"]
 [ext_resource type="PackedScene" uid="uid://biwxurtl25c1v" path="res://Levels/Environment/Door/Door.tscn" id="8_7r5s1"]
+[ext_resource type="Script" uid="uid://coyslpdcg7mn8" path="res://Levels/TriggerSetup.cs" id="10_7r5s1"]
 [ext_resource type="PackedScene" uid="uid://cvlmmp7oc57rq" path="res://Levels/Environment/Switch/Switch.tscn" id="11_1j710"]
+
+[sub_resource type="Resource" id="Resource_1j710"]
+script = ExtResource("10_7r5s1")
+TriggerableNode = NodePath("../Door")
+metadata/_custom_type_script = "uid://coyslpdcg7mn8"
 
 [node name="Level2" type="Node2D" unique_id=226105030]
 
@@ -70,3 +76,4 @@ position = Vector2(184, -192)
 
 [node name="Switch" parent="." unique_id=1172386124 instance=ExtResource("11_1j710")]
 position = Vector2(400, -16)
+TriggerSetups = [SubResource("Resource_1j710")]

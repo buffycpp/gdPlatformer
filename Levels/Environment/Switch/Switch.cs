@@ -6,9 +6,7 @@ public partial class Switch : Area2D, IInteractable
 	[Export] public Sprite2D OnSprite;
 	[Export] public Sprite2D OffSprite;
 	[Export] public AudioStream ToggleSound;
-	[Export] public Node TriggerableNode;
-
-	public ITriggerable Triggerable => TriggerableNode as ITriggerable;
+	[Export] public TriggerSetup[] TriggerSetups = [];
 
 	public bool isOn = false;
 
@@ -17,12 +15,12 @@ public partial class Switch : Area2D, IInteractable
 		GameController.Instance.ResetLevelEvent += OnResetLevel;
 	}
 
-    private void OnResetLevel()
-    {
-        Toggle(false, reset: true);
-    }
+	private void OnResetLevel()
+	{
+		Toggle(false, reset: true);
+	}
 
-    public override void _Process(double delta)
+	public override void _Process(double delta)
 	{
 	}
 
@@ -38,19 +36,24 @@ public partial class Switch : Area2D, IInteractable
 		}
 	}
 
-    public bool CanInteract()
-    {
-        return !isOn;
-    }
+	public bool CanInteract()
+	{
+		return !isOn;
+	}
 
-    public void Interact()
-    {
-        Toggle(true);
-		if ((Triggerable?.CanTrigger()).GetValueOrDefault())
+	public void Interact()
+	{
+		Toggle(true);
+
+		foreach (var triggerSetup in TriggerSetups)
 		{
-			Triggerable.Trigger();			
+			var triggerable = GetNode(triggerSetup.TriggerableNode) as ITriggerable;
+			if ((triggerable?.CanTrigger()).GetValueOrDefault())
+			{
+				triggerable.Trigger(triggerSetup.ActionName);
+			}
 		}
-    }
+	}
 
 	public override void _ExitTree()
 	{

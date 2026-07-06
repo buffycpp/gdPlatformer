@@ -1,0 +1,279 @@
+[gd_scene format=4 uid="uid://c7u2ro5ov0fnm"]
+
+[ext_resource type="TileSet" uid="uid://vnex1dvkn6t" path="res://Levels/Environment/MainTileset.tres" id="1_q57d1"]
+[ext_resource type="PackedScene" uid="uid://p2d3shi6mvdu" path="res://Effects/AO/AOLayer.tscn" id="2_imuee"]
+[ext_resource type="PackedScene" uid="uid://btiu6ii2ay1l0" path="res://Levels/Environment/Spikes.tscn" id="3_r7626"]
+[ext_resource type="PackedScene" uid="uid://wqpkrq632ssq" path="res://Levels/Environment/Lights/WallLampA.tscn" id="4_rh4iv"]
+[ext_resource type="PackedScene" uid="uid://bbbj33bixex8i" path="res://Levels/Environment/Lights/CeilingLampA.tscn" id="5_jr15g"]
+[ext_resource type="PackedScene" uid="uid://cjffeqi2x4rt0" path="res://Levels/Environment/LevelCompleteTrigger.tscn" id="6_n07e4"]
+[ext_resource type="PackedScene" uid="uid://bofauilb6xmbl" path="res://Levels/Environment/CollectibleStar.tscn" id="7_4mx68"]
+[ext_resource type="Script" uid="uid://cwrhboblddhf2" path="res://Levels/Environment/Door/Door.cs" id="8_nqwu7"]
+[ext_resource type="AudioStream" uid="uid://c8yorj1ugfhhv" path="res://Audio/door.wav" id="9_ygm7k"]
+[ext_resource type="Texture2D" uid="uid://cl1r1rah51g21" path="res://Art/door.png" id="10_8cbf7"]
+[ext_resource type="PackedScene" uid="uid://d37du1halw8rj" path="res://Levels/Environment/Laser.tscn" id="11_p3uxr"]
+[ext_resource type="PackedScene" uid="uid://cvlmmp7oc57rq" path="res://Levels/Environment/Switch/Switch.tscn" id="12_vus6n"]
+[ext_resource type="Script" uid="uid://coyslpdcg7mn8" path="res://Levels/TriggerSetup.cs" id="13_imuee"]
+
+[sub_resource type="Curve2D" id="Curve2D_8qljt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 24, -16, 0, 0, 0, 0, 144, -16, 0, 0, 0, 0, 600, -16)
+}
+point_count = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxyb4"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2snmo"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti0b3"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r5s1"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j710"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfjk5"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7nng"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4yfo"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5empu"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqpon"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avhxi"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ob3ak"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkcye"]
+atlas = ExtResource("10_8cbf7")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2snmo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxyb4")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2snmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti0b3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r5s1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j710")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfjk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7nng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4yfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5empu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqpon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avhxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ob3ak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkcye")
+}],
+"loop": false,
+"name": &"open",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxyb4"]
+size = Vector2(6, 64)
+
+[sub_resource type="Resource" id="Resource_r7626"]
+script = ExtResource("13_imuee")
+TriggerableNode = NodePath("../Door")
+metadata/_custom_type_script = "uid://coyslpdcg7mn8"
+
+[sub_resource type="Resource" id="Resource_imuee"]
+script = ExtResource("13_imuee")
+TriggerableNode = NodePath("../Laser4")
+metadata/_custom_type_script = "uid://coyslpdcg7mn8"
+
+[node name="Level1" type="Node2D" unique_id=226105030]
+
+[node name="TileMapLayer_Background" type="TileMapLayer" parent="." unique_id=841012553]
+tile_map_data = PackedByteArray("AAAAAPz/AAACAAYAADAAAP3/AAAAAAYAADD9//z/AAACAAYAAFD+//z/AAABAAYAAGD///z/AAABAAYAAGD/////AAAAAAgAAAACAP//AAAAAAgAAAADAP//AAAAAAgAAAADAP7/AAAAAAgAAAACAP7/AAAAAAgAAAD///7/AAAAAAgAAAAAAP7/AAAAAAkAAAAHAP//AAAAAAgAAAAIAP//AAAAAAgAAAAJAP//AAAAAAgAAAAKAP//AAAAAAgAAAAKAP7/AAAAAAgAAAAJAP7/AAAAAAgAAAAIAP7/AAAAAAgAAAAIAP3/AAAAAAgAAAAHAP3/AAAAAAgAAAAJAP3/AAAAAAgAAAAHAP7/AAAAAAgAAAAKAP3/AAAAAAgAAAACAAAAAAAAAAgAAAADAAAAAAAAAAgAAAADAAEAAAAAAAgAAAADAAIAAAAAAAgAAAADAAMAAAAAAAgAAAADAAQAAAAAAAgAAAADAAUAAAAAAAgAAAADAAYAAAAAAAgAAAACAAYAAAAAAAgAAAACAAUAAAAAAAgAAAACAAQAAAAAAAgAAAACAAMAAAAAAAgAAAACAAIAAAAAAAgAAAACAAEAAAAAAAgAAAAEAAAAAAAAAAgAAAAFAAAAAAAAAAgAAAAGAAAAAAAAAAgAAAAHAAAAAAAAAAgAAAAIAAAAAAAAAAgAAAAJAAAAAAAAAAgAAAAKAAAAAAAAAAgAAAAKAAEAAAAAAAgAAAAKAAIAAAAAAAgAAAAKAAMAAAAAAAgAAAAKAAQAAAAAAAgAAAAKAAUAAAAAAAgAAAAKAAYAAAAAAAgAAAAJAAYAAAAAAAgAAAAIAAYAAAAAAAgAAAAHAAYAAAAAAAgAAAAGAAYAAAAAAAgAAAAFAAYAAAAAAAgAAAAEAAYAAAAAAAgAAAAEAAUAAAAAAAgAAAAEAAQAAAAAAAgAAAAEAAMAAAAAAAgAAAAEAAIAAAAAAAgAAAAFAAIAAAAAAAgAAAAFAAEAAAAAAAgAAAAEAAEAAAAAAAgAAAAFAAMAAAAAAAgAAAAFAAQAAAAAAAgAAAAFAAUAAAAAAAgAAAAGAAUAAAAAAAgAAAAHAAUAAAAAAAgAAAAHAAQAAAAAAAgAAAAGAAQAAAAAAAgAAAAGAAMAAAAAAAgAAAAGAAIAAAAAAAgAAAAGAAEAAAAAAAgAAAAHAAEAAAAAAAgAAAAHAAIAAAAAAAgAAAAHAAMAAAAAAAgAAAAIAAUAAAAAAAgAAAAIAAQAAAAAAAgAAAAIAAMAAAAAAAgAAAAIAAIAAAAAAAgAAAAIAAEAAAAAAAgAAAAJAAEAAAAAAAgAAAAJAAIAAAAAAAgAAAAJAAMAAAAAAAgAAAAJAAQAAAAAAAgAAAAJAAUAAAAAAAgAAAD9//3/AAABAAYAAAD9//7/AAABAAYAAAD9////AAABAAYAAAD9/wAAAAABAAYAAAD9/wEAAAABAAYAAAD9/wIAAAABAAYAAAD9/wMAAAABAAYAAAD9/wQAAAABAAYAAAD9/wUAAAABAAYAAAD9/wYAAAABAAYAAAD9/wcAAAABAAYAAAD9/wgAAAABAAYAAAD9/wkAAAABAAYAAAD9/woAAAABAAYAAAD9/wsAAAABAAYAAAD9/wwAAAABAAYAAAD9/w0AAAABAAYAAAD9/w4AAAABAAYAAAD9/w8AAAABAAYAAAD9/xAAAAABAAYAAAD9/xEAAAABAAYAAAA=")
+tile_set = ExtResource("1_q57d1")
+
+[node name="AOLayer" parent="." unique_id=2044673814 instance=ExtResource("2_imuee")]
+
+[node name="TileMapLayer_Base" type="TileMapLayer" parent="." unique_id=525280202 groups=["AOEntity"]]
+z_index = 100
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAABAAAAAAACAAAAAFD//wAAAAABAAAAAAD+////AAABAAAAAFD+/wAAAAABAAEAADD+//3/AAABAAEAAGD+//7/AAABAAAAAFD///3/AAABAAAAADABAP3/AAABAAAAADAEAAAAAAAAAAAAAAAHAP//AAABAAAAAGAHAP7/AAABAAAAAGAHAP3/AAACAAAAAAAKAAAAAAACAAAAAFALAP//AAAAAAYAAGAMAP//AAABAAYAAFANAP//AAABAAYAAFAOAP//AAABAAYAAFALAP7/AAABAAAAAGALAP3/AAABAAAAAGALAAAAAAABAAEAAFABAAEAAAABAAAAAFABAAIAAAABAAAAAFABAAMAAAABAAAAAFABAAQAAAABAAAAAFABAAUAAAABAAAAAFABAAYAAAABAAAAAFACAAYAAAADAAQAADADAAYAAAADAAQAADAEAAEAAAAAAAAAAAAEAAIAAAABAAQAAFAEAAMAAAABAAQAAFAEAAYAAAAAAAAAAAAFAAYAAAADAAQAADAGAAYAAAADAAQAADAHAAYAAAACAAAAAGAHAAUAAAADAAQAAGAEAAUAAAABAAAAADAHAAQAAAADAAQAAGAHAAMAAAACAAAAAAAFAAAAAAADAAQAAAAGAAAAAAADAAQAAAAHAAAAAAACAAAAAAAIAAYAAAABAAAAADAJAAYAAAABAAAAADAKAAYAAAACAAAAADAKAAUAAAADAAQAAFAKAAQAAAADAAQAAFAKAAMAAAACAAAAAFACAP3/AAABAAAAADADAP3/AAABAAAAADAEAP7/AAABAAAAAGAEAP//AAACAAAAAGAKAAIAAAABAAAAAFAKAAEAAAABAAAAAFAJAAAAAAABAAAAAAAJAAEAAAABAAEAAAAIAAEAAAAEAAEAAGAKAP3/AAABAAAAAAAJAP3/AAABAAAAAAAIAP3/AAABAAAAAAAEAP3/AAABAAEAAAAFAP//AAABAAAAADAGAP//AAACAAAAADAGAP7/AAABAAEAAGAPAP//AAABAAYAAFAQAP//AAABAAYAAFARAP//AAABAAYAAFASAP//AAABAAYAAFATAP//AAABAAYAAFAUAP//AAABAAYAAFAVAP//AAABAAYAAFAWAP//AAABAAYAAFAXAP//AAABAAYAAFAYAP//AAABAAYAAFAZAP//AAABAAYAAFAaAP//AAABAAYAAFAbAP//AAABAAYAAFAcAP//AAABAAYAAFA=")
+tile_set = ExtResource("1_q57d1")
+
+[node name="Spikes1" parent="." unique_id=1938478603 instance=ExtResource("3_r7626")]
+position = Vector2(80, 192)
+rotation = -1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes7" parent="." unique_id=719692759 instance=ExtResource("3_r7626")]
+position = Vector2(112, 80)
+rotation = 3.1415927
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes9" parent="." unique_id=1931209762 instance=ExtResource("3_r7626")]
+position = Vector2(320, 144)
+rotation = 3.1415927
+InactiveTime = 1.5
+ActiveTime = 1.5
+RetractTime = 0.5
+PhaseOffset = 0.0
+
+[node name="Spikes10" parent="." unique_id=1376524960 instance=ExtResource("3_r7626")]
+position = Vector2(320, 176)
+rotation = 3.1415927
+InactiveTime = 1.5
+ActiveTime = 1.5
+RetractTime = 0.5
+PhaseOffset = 0.0
+
+[node name="Spikes11" parent="." unique_id=893804655 instance=ExtResource("3_r7626")]
+position = Vector2(256, 176)
+InactiveTime = 1.5
+ActiveTime = 1.5
+RetractTime = 0.5
+PhaseOffset = 1.75
+
+[node name="Spikes12" parent="." unique_id=528548494 instance=ExtResource("3_r7626")]
+position = Vector2(256, 144)
+InactiveTime = 1.5
+ActiveTime = 1.5
+RetractTime = 0.5
+PhaseOffset = 1.75
+
+[node name="Spikes8" parent="." unique_id=850196013 instance=ExtResource("3_r7626")]
+position = Vector2(112, 112)
+rotation = 3.1415927
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes2" parent="." unique_id=2100847969 instance=ExtResource("3_r7626")]
+position = Vector2(112, 192)
+rotation = -1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes4" parent="." unique_id=1755341630 instance=ExtResource("3_r7626")]
+position = Vector2(176, 32)
+rotation = 1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes6" parent="." unique_id=1207910700 instance=ExtResource("3_r7626")]
+position = Vector2(208, 32)
+rotation = 1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes3" parent="." unique_id=1157338976 instance=ExtResource("3_r7626")]
+position = Vector2(176, 192)
+rotation = -1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="Spikes5" parent="." unique_id=511705292 instance=ExtResource("3_r7626")]
+position = Vector2(208, 192)
+rotation = -1.5707964
+RetractTime = 0.5
+Permanent = true
+PhaseOffset = 3.25
+
+[node name="WallLampA2" parent="." unique_id=1781497090 groups=["Light"] instance=ExtResource("4_rh4iv")]
+position = Vector2(288, 104)
+
+[node name="WallLampA3" parent="." unique_id=2112496895 groups=["Light"] instance=ExtResource("4_rh4iv")]
+position = Vector2(96, 152)
+
+[node name="CeilingLampA2" parent="." unique_id=50929296 groups=["Light"] instance=ExtResource("5_jr15g")]
+position = Vector2(96, -64)
+
+[node name="LevelCompleteTrigger" parent="." unique_id=671268552 instance=ExtResource("6_n07e4")]
+position = Vector2(320, 0)
+
+[node name="Path2D" parent="LevelCompleteTrigger" index="6" unique_id=1061257362]
+curve = SubResource("Curve2D_8qljt")
+
+[node name="CollectibleStar" parent="." unique_id=1192546032 instance=ExtResource("7_4mx68")]
+position = Vector2(288, 184)
+
+[node name="Door" type="StaticBody2D" parent="." unique_id=9622746 node_paths=PackedStringArray("animatedSprite2D", "collisionShape2D")]
+position = Vector2(232, 64)
+script = ExtResource("8_nqwu7")
+animatedSprite2D = NodePath("AnimatedSprite2D")
+collisionShape2D = NodePath("CollisionShape2D")
+ToggleSound = ExtResource("9_ygm7k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Door" unique_id=514709566]
+sprite_frames = SubResource("SpriteFrames_2snmo")
+animation = &"closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door" unique_id=1244800554]
+shape = SubResource("RectangleShape2D_dxyb4")
+
+[node name="Switch" parent="." unique_id=1172386124 instance=ExtResource("12_vus6n")]
+position = Vector2(176, 32)
+TriggerSetups = [SubResource("Resource_r7626"), SubResource("Resource_imuee")]
+
+[node name="Laser4" parent="." unique_id=368053758 instance=ExtResource("11_p3uxr")]
+position = Vector2(192, 112)
+IsOn = false
+
+[editable path="LevelCompleteTrigger"]
