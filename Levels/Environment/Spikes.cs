@@ -8,8 +8,6 @@ public partial class Spikes : TimeSyncedNode2D
 	[Export] public float ActiveTime = 3f;
 	[Export] public float RetractTime = 1f;
 	[Export] public bool Permanent = false;
-
-	// 🔑 Phase offset (in seconds)
 	[Export] public float PhaseOffset = 0f;
 
 	[Export] public AnimatedSprite2D animatedSprite;
@@ -46,7 +44,7 @@ public partial class Spikes : TimeSyncedNode2D
 
 		float levelTime = GameController.Instance.LevelTime;
 
-		// 🔑 Phase shift applied here (cycle space)
+		// Phase shift applied here (cycle space)
 		float t = (levelTime + PhaseOffset) % _cycleTime;
 
 		UpdateState(t);

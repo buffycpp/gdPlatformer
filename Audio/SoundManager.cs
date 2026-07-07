@@ -25,11 +25,16 @@ public partial class SoundManager : SingletonNode<SoundManager>
 		}
 	}
 
-	public void PlaySfx(AudioStream stream, Vector2 position, float volumeDb = 0f, float pitch = 1f)
+	public void PlaySfx(
+		AudioStream stream,
+		Vector2 position,
+		float volumeDb = 0f,
+		float pitch = 1f,
+		float maxDistance = 1000f,
+		float attenuation = 1.5f)
 	{
 		if (_available.Count == 0)
 		{
-			GD.Print("No available audio players in pool!");
 			return;
 		}
 
@@ -39,6 +44,8 @@ public partial class SoundManager : SingletonNode<SoundManager>
 		player.GlobalPosition = position;
 		player.VolumeDb = volumeDb;
 		player.PitchScale = pitch;
+		player.MaxDistance = maxDistance;
+		player.Attenuation = attenuation;
 		player.Bus = "SFX";
 
 		player.Play();

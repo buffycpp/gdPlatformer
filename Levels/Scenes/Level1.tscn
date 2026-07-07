@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btiu6ii2ay1l0" path="res://Levels/Environment/Spikes.tscn" id="2_tetnq"]
 [ext_resource type="PackedScene" uid="uid://cjffeqi2x4rt0" path="res://Levels/Environment/LevelCompleteTrigger.tscn" id="3_nvce0"]
 [ext_resource type="PackedScene" uid="uid://bbbj33bixex8i" path="res://Levels/Environment/Lights/CeilingLampA.tscn" id="6_nvce0"]
+[ext_resource type="PackedScene" uid="uid://c6n5uo7pac1rp" path="res://Levels/Environment/Turret/Turret.tscn" id="8_fefpd"]
 [ext_resource type="PackedScene" uid="uid://bofauilb6xmbl" path="res://Levels/Environment/CollectibleStar.tscn" id="9_od712"]
 [ext_resource type="PackedScene" uid="uid://wqpkrq632ssq" path="res://Levels/Environment/Lights/WallLampA.tscn" id="12_qhakg"]
 
@@ -55,3 +56,7 @@ position = Vector2(544, -128)
 
 [node name="CollectibleStar" parent="." unique_id=1192546032 instance=ExtResource("9_od712")]
 position = Vector2(288, -144)
+
+[node name="Turret" parent="." unique_id=303893585 instance=ExtResource("8_fefpd")]
+position = Vector2(392, -12)
+ProjectileSpeed = 150.0

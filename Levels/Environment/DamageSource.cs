@@ -16,15 +16,26 @@ public partial class DamageSource : Area2D
 		}
 
 		BodyEntered += OnBodyEntered;
+		AreaEntered += OnAreaEntered;
 	}
 
-	private void OnBodyEntered(Node2D body)
+	protected virtual void OnBodyEntered(Node2D body)
 	{
+		GD.Print("TurretProjectile hit: " + body.Name);
 		if (body.IsInGroup("Player"))
 		{
 			GameController.Instance.SignalPlayerDeath(this);
 		}
 	}
+
+	protected virtual void OnAreaEntered(Area2D area)
+	{
+		GD.Print("TurretProjectile hit: " + area.Name);
+		if (area.IsInGroup("Player"))
+		{
+			GameController.Instance.SignalPlayerDeath(this);
+		}
+	}	
 
 	public void Toggle(bool state)
 	{

@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://c6n5uo7pac1rp"]
+
+[ext_resource type="Script" uid="uid://ciujch4110r06" path="res://Levels/Environment/Turret/Turret.cs" id="1_eo5tm"]
+[ext_resource type="PackedScene" uid="uid://etwgv3f7esoe" path="res://Levels/Environment/Turret/TurretProjectile.tscn" id="2_fxt13"]
+[ext_resource type="AudioStream" uid="uid://0c20yhxksffm" path="res://Audio/TheLibrarybyMTC_Robo_LaserBlast_Medium_027.wav" id="3_8ujgw"]
+[ext_resource type="Texture2D" uid="uid://ce8ei5rxbw7mo" path="res://Art/turret.png" id="4_81tbj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fefpd"]
+atlas = ExtResource("4_81tbj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od712"]
+atlas = ExtResource("4_81tbj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tetnq"]
+atlas = ExtResource("4_81tbj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tetnq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fefpd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od712")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tetnq")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 16.0
+}]
+
+[sub_resource type="Curve" id="Curve_od712"]
+_data = [Vector2(0.018867925, 1), 0.0, 0.0, 0, 0, Vector2(0.7421384, 0.8539326), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.573037, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tetnq"]
+curve = SubResource("Curve_od712")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_od712"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.79999995
+color = Color(4.0059752, 0, 0.19892484, 1)
+alpha_curve = SubResource("CurveTexture_tetnq")
+
+[node name="Turret" type="Node2D" unique_id=303893585 node_paths=PackedStringArray("animatedSprite", "muzzleFlashParticles")]
+z_index = 101
+rotation = 1.5707964
+script = ExtResource("1_eo5tm")
+ProjectileSpeed = 50.0
+animatedSprite = NodePath("AnimatedSprite2D")
+muzzleFlashParticles = NodePath("GPUParticles2D")
+projectileScene = ExtResource("2_fxt13")
+shootSound = ExtResource("3_8ujgw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1097207507]
+position = Vector2(1.3113416e-07, 3)
+sprite_frames = SubResource("SpriteFrames_tetnq")
+animation = &"shoot"
+frame = 1
+frame_progress = 1.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1812779496]
+position = Vector2(-4.371138e-08, -1)
+emitting = false
+amount = 50
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_od712")

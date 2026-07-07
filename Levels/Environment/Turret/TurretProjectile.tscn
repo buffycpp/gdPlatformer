@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://etwgv3f7esoe"]
+
+[ext_resource type="Script" uid="uid://b8yoqiopfkb07" path="res://Levels/Environment/Turret/TurretProjectile.cs" id="1_2k8kr"]
+[ext_resource type="Shader" uid="uid://dox6043hc2mv4" path="res://Effects/TextureTint.gdshader" id="1_m5m3m"]
+[ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="2_2k8kr"]
+[ext_resource type="Texture2D" uid="uid://bsicaama8oxhp" path="res://Art/laser.png" id="4_xfiu5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhakg"]
+shader = ExtResource("1_m5m3m")
+shader_parameter/tint_color = Color(1.685791, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5m3m"]
+size = Vector2(2, 6)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xfiu5"]
+light_mode = 1
+
+[node name="TurretProjectile" type="Area2D" unique_id=1669486511]
+z_index = 105
+collision_layer = 128
+script = ExtResource("1_2k8kr")
+Speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=472238369]
+visible = false
+material = SubResource("ShaderMaterial_qhakg")
+texture = ExtResource("2_2k8kr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=607366993]
+shape = SubResource("RectangleShape2D_m5m3m")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1499204176]
+material = SubResource("CanvasItemMaterial_xfiu5")
+rotation = 1.5707964
+points = PackedVector2Array(-3, 0, 3, 0)
+default_color = Color(1, 0, 0, 1)
+texture = ExtResource("4_xfiu5")
+texture_mode = 2
