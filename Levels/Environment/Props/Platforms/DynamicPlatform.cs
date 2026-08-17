@@ -7,7 +7,7 @@ public partial class DynamicPlatform : Area2D
 	[Export] public Sprite2D sprite2D;
 
 	[Export] public float DisappearTime = 1.0f;
-	[Export] public float SemiTransparentDuration = 2.0f;
+	[Export] public float RecoveryTime = 1.0f;
 
 	[Export] public Texture2D noiseTexture;
 
@@ -156,7 +156,7 @@ public partial class DynamicPlatform : Area2D
 		}
 
 		_playerFallenThrough = true;
-		_fadeBackTimer = SemiTransparentDuration;
+		_fadeBackTimer = RecoveryTime;
 	}
 
 	private void ResetPlatform()

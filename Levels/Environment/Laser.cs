@@ -64,7 +64,7 @@ public partial class Laser : Node2D, ITriggerable
 		}
 	}
 
-    public override void _Process(double delta)
+	public override void _Process(double delta)
 	{
 		if (Engine.IsEditorHint())
 		{
@@ -123,14 +123,14 @@ public partial class Laser : Node2D, ITriggerable
 		((RectangleShape2D)CollisionShape2D.Shape).Size = new Vector2(Width * 2, 5f);
 	}
 
-    public bool CanTrigger()
-    {
-        return true;
-    }
+	public bool CanTrigger()
+	{
+		return true;
+	}
 
-    public void Trigger(string actionName = "default")
-    {
-        if (actionName == "default")
+	public void Trigger(string actionName = "default")
+	{
+		if (actionName == "default")
 		{
 			Toggle(!_isOn);
 			return;
@@ -147,7 +147,7 @@ public partial class Laser : Node2D, ITriggerable
 			Toggle(false);
 			return;	
 		}
-    }
+	}
 
 	public void Toggle(bool on)
 	{
@@ -163,8 +163,8 @@ public partial class Laser : Node2D, ITriggerable
 		CollisionShape2D.Disabled = !on;
 	}
 
-    private void OnResetLevel()
-    {
-        Toggle(initialState);
-    }	
+	private void OnResetLevel()
+	{
+		Toggle(initialState);
+	}	
 }
