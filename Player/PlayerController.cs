@@ -7,6 +7,8 @@ public partial class PlayerController : SingletonNode<PlayerController>
     [Export] public PlayerCamera PlayerCamera { get; set; }
     [Export] public float InputBlockTimeAfterDeath = 0.5f;
 
+    private bool _isJumpBlocked = false;
+
     public override void _Ready()
     {
         GameController.Instance.PlayerDeathEvent += OnPlayerDeath;
@@ -28,7 +30,7 @@ public partial class PlayerController : SingletonNode<PlayerController>
     /// <returns>True if the event was succesfully consumed</returns>
     public void TryJump()
     {
-        if (IsInputBlocked())
+        if (_isJumpBlocked || IsInputBlocked())
         {
             return;
         }
@@ -100,8 +102,23 @@ public partial class PlayerController : SingletonNode<PlayerController>
         // Player?.PlayerInteraction?.TriggerInteraction();
     }
 
+    public void LaunchPlayer(Vector2 direction, float force)
+    {
+        if (IsInputBlocked())
+        {
+            return;
+        }
+
+        Player.Launch(direction, force);
+    }    
+
     public override void _ExitTree()
     {
         GameController.Instance.PlayerDeathEvent -= OnPlayerDeath;
+    }
+
+    public void SetIsJumpBlocked(bool isJumpBlocked)
+    {
+        _isJumpBlocked = isJumpBlocked;
     }
 }

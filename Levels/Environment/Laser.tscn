@@ -9,7 +9,7 @@
 light_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvce0"]
-size = Vector2(64, 5)
+size = Vector2(80, 5)
 
 [node name="Laser" type="Node2D" unique_id=1721952021 node_paths=PackedStringArray("MainLine", "GlowLine", "SpriteLeft", "SpriteRight", "CollisionShape2D")]
 script = ExtResource("1_wc045")
@@ -48,6 +48,7 @@ rotation = 3.1415927
 texture = ExtResource("3_v841j")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1928963808]
+collision_layer = 128
 script = ExtResource("4_nfmmq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=721031574]

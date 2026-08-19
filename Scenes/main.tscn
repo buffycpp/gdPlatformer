@@ -449,10 +449,12 @@ script = ExtResource("19_cbgmd")
 InteractionArea = NodePath("InteractionArea2D")
 
 [node name="InteractionArea2D" type="Area2D" parent="PlayerController/Player/PlayerInteraction" unique_id=1930876941]
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/Player/PlayerInteraction/InteractionArea2D" unique_id=1736285740]
 position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_a6jrf")
+debug_color = Color(0.5290989, 0.5404905, 0.5294173, 0.41960785)
 
 [node name="PlayerCamera" type="Camera2D" parent="PlayerController" unique_id=497434114]
 zoom = Vector2(3, 3)

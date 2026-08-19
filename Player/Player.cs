@@ -107,6 +107,13 @@ public partial class Player : CharacterBody2D
         HandleFootsteps(fDelta);
     }
 
+    public void Launch(Vector2 direction, float force)
+    {
+        // _xInput = 0;
+        _moveDestination = null;
+        Velocity = direction.Normalized() * force;
+    }    
+
     public Vector2 MoveWithDestination(float delta)
     {
         if (_moveDestination == null)

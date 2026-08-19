@@ -16,17 +16,14 @@ public partial class PlayerInteraction : Node
 
     private void OnInteractionAreaExited(Area2D area)
     {
-        GD.Print("this works");
         if (area is IInteractable interactable)
         {
             _interactables.Remove(interactable);
-            GD.Print("this doesnt work");
         }
     }
 
     private void OnInteractionAreaEntered(Area2D area)
     {
-        GD.Print("Entered: " + area.Name);
         if (area is IInteractable interactable)
         {
             GD.Print("Added: " + area.Name);
@@ -38,7 +35,6 @@ public partial class PlayerInteraction : Node
 
     public void TriggerInteraction()
     {
-        GD.Print("trying to interact");
         _interactables.FirstOrDefault(e => e.CanInteract())?.Interact();
     }
 }

@@ -22,12 +22,12 @@ shader_parameter/emission_strength = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pfjk5"]
 size = Vector2(32, 32)
 
-[node name="Switch" type="Area2D" unique_id=1172386124 node_paths=PackedStringArray("OnSprite", "OffSprite", "TriggerableNode") groups=["Interactable"]]
+[node name="Switch" type="Area2D" unique_id=1172386124 node_paths=PackedStringArray("OnSprite", "OffSprite") groups=["Interactable"]]
+collision_layer = 64
 script = ExtResource("1_dfd4m")
 OnSprite = NodePath("SpriteOn")
 OffSprite = NodePath("SpriteOff")
 ToggleSound = ExtResource("2_vev01")
-TriggerableNode = NodePath("")
 
 [node name="SpriteOn" type="Sprite2D" parent="." unique_id=1886392380]
 visible = false
