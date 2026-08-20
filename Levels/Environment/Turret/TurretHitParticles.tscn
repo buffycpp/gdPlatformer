@@ -22,7 +22,7 @@ scale_min = 0.79999995
 color = Color(4.0059924, 1.261011, 1.0386533, 1)
 alpha_curve = SubResource("CurveTexture_tetnq")
 
-[node name="GPUParticles2D" type="GPUParticles2D" unique_id=358644803]
+[node name="TurretHitParticles" type="GPUParticles2D" unique_id=358644803]
 emitting = false
 amount = 50
 lifetime = 0.03

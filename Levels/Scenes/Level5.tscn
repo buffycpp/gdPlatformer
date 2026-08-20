@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://coyslpdcg7mn8" path="res://Levels/TriggerSetup.cs" id="10_x15hm"]
 [ext_resource type="PackedScene" uid="uid://d37du1halw8rj" path="res://Levels/Environment/Laser.tscn" id="12_x15hm"]
 [ext_resource type="PackedScene" uid="uid://btiu6ii2ay1l0" path="res://Levels/Environment/Spikes.tscn" id="13_4gkff"]
-[ext_resource type="PackedScene" uid="uid://c2d2bwa2t43rl" path="res://Levels/Environment/Turret/TurretHitParticles.tscn" id="14_bdv6l"]
 
 [sub_resource type="Curve2D" id="Curve2D_8qljt"]
 _data = {
@@ -143,8 +142,5 @@ Permanent = true
 
 [node name="CeilingLampA3" parent="." unique_id=1252062833 instance=ExtResource("5_6if13")]
 position = Vector2(272, -224)
-
-[node name="GPUParticles2D" parent="." unique_id=358644803 instance=ExtResource("14_bdv6l")]
-position = Vector2(152, 0)
 
 [editable path="LevelCompleteTrigger"]
