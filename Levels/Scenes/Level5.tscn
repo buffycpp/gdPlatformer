@@ -6,14 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bbbj33bixex8i" path="res://Levels/Environment/Lights/CeilingLampA.tscn" id="5_6if13"]
 [ext_resource type="PackedScene" uid="uid://cjffeqi2x4rt0" path="res://Levels/Environment/LevelCompleteTrigger.tscn" id="6_eqv6b"]
 [ext_resource type="PackedScene" uid="uid://bofauilb6xmbl" path="res://Levels/Environment/CollectibleStar.tscn" id="7_7fkks"]
-[ext_resource type="PackedScene" uid="uid://dg1rxvnkamxpr" path="res://Levels/Environment/Props/Platforms/DynamicPlatform.tscn" id="7_23ujw"]
+[ext_resource type="PackedScene" uid="uid://dg1rxvnkamxpr" path="res://Levels/Environment/Platforms/DynamicPlatform/DynamicPlatform.tscn" id="7_23ujw"]
 [ext_resource type="PackedScene" uid="uid://c6n5uo7pac1rp" path="res://Levels/Environment/Turret/Turret.tscn" id="8_tan86"]
 [ext_resource type="PackedScene" uid="uid://cvlmmp7oc57rq" path="res://Levels/Environment/Switch/Switch.tscn" id="9_vlaqs"]
 [ext_resource type="PackedScene" uid="uid://biwxurtl25c1v" path="res://Levels/Environment/Door/Door.tscn" id="10_bfq0k"]
 [ext_resource type="Script" uid="uid://coyslpdcg7mn8" path="res://Levels/TriggerSetup.cs" id="10_x15hm"]
 [ext_resource type="PackedScene" uid="uid://d37du1halw8rj" path="res://Levels/Environment/Laser.tscn" id="12_x15hm"]
 [ext_resource type="PackedScene" uid="uid://btiu6ii2ay1l0" path="res://Levels/Environment/Spikes.tscn" id="13_4gkff"]
-[ext_resource type="PackedScene" uid="uid://n3g42kv2clis" path="res://Levels/Environment/Platforms/LauncherPlatform/LauncherPlatform.tscn" id="14_bdv6l"]
+[ext_resource type="PackedScene" uid="uid://c2d2bwa2t43rl" path="res://Levels/Environment/Turret/TurretHitParticles.tscn" id="14_bdv6l"]
 
 [sub_resource type="Curve2D" id="Curve2D_8qljt"]
 _data = {
@@ -43,7 +43,7 @@ tile_set = ExtResource("1_4gkff")
 position = Vector2(504, -152)
 
 [node name="WallLampA5" parent="." unique_id=1560884596 groups=["Light"] instance=ExtResource("4_f3smf")]
-position = Vector2(288, 8)
+position = Vector2(288, -48)
 
 [node name="WallLampA6" parent="." unique_id=626346739 groups=["Light"] instance=ExtResource("4_f3smf")]
 position = Vector2(544, 48)
@@ -105,6 +105,11 @@ position = Vector2(440, -16)
 FiringInterval = 2.5
 ProjectileSpeed = 200.0
 
+[node name="Turret2" parent="." unique_id=1436015874 instance=ExtResource("8_tan86")]
+position = Vector2(440, -176)
+FiringInterval = 2.5
+ProjectileSpeed = 200.0
+
 [node name="Switch" parent="." unique_id=1172386124 instance=ExtResource("9_vlaqs")]
 position = Vector2(272, -152)
 TriggerSetups = [SubResource("Resource_4gkff")]
@@ -139,8 +144,7 @@ Permanent = true
 [node name="CeilingLampA3" parent="." unique_id=1252062833 instance=ExtResource("5_6if13")]
 position = Vector2(272, -224)
 
-[node name="LauncherPlatform" parent="." unique_id=1220571788 instance=ExtResource("14_bdv6l")]
-position = Vector2(152, -72)
-LaunchForce = 400.0
+[node name="GPUParticles2D" parent="." unique_id=358644803 instance=ExtResource("14_bdv6l")]
+position = Vector2(152, 0)
 
 [editable path="LevelCompleteTrigger"]

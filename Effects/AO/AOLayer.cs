@@ -26,8 +26,14 @@ public partial class AOLayer : Sprite2D
 	{
 		foreach (var entity in GetTree().GetNodesInGroup("AOEntity"))
 		{
-			var dupe = entity.Duplicate();
+			GD.Print("Adding AO Entity: " + entity.Name);
+
+			if (entity is not Node2D) continue;
+			
+			Transform2D globalTransform = ((Node2D)entity).GlobalTransform;
+			Node2D dupe = (Node2D)entity.Duplicate();
 			_aoViewport.AddChild(dupe);
+			dupe.GlobalTransform = globalTransform;
 		}
 	}
 }

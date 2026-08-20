@@ -12,6 +12,7 @@ public partial class LauncherPlatform : Area2D
 
 	private float _cooldownTimer = 0.0f;
 	private bool _isLaunching = false;
+	private bool _playerInLauncher = false;
 
 	private Vector2 _originalBodyPosition;
 	private float _extensionProgress = 0.0f;
@@ -80,6 +81,7 @@ public partial class LauncherPlatform : Area2D
 
 		PlayerController.Instance.SetIsJumpBlocked(true);
 
+		_playerInLauncher = true;
 		_isLaunching = true;
 
 		animatedSprite2D.Play("extend");
@@ -89,6 +91,14 @@ public partial class LauncherPlatform : Area2D
 	{
 		if (animatedSprite2D.Animation != "extend")
 		{
+			return;
+		}
+
+		if (!_playerInLauncher)
+		{
+			_isLaunching = false;
+			PlayerController.Instance.SetIsJumpBlocked(false);
+			animatedSprite2D.Play("retract");
 			return;
 		}
 
@@ -102,6 +112,8 @@ public partial class LauncherPlatform : Area2D
 		_cooldownTimer = LaunchCooldown;
 		_isLaunching = false;
 
+		PlayerController.Instance.SetIsJumpBlocked(false);
+
 		GD.Print(
 			$"Launched player with force {LaunchForce} " +
 			$"in direction {launchDirection}"
@@ -112,14 +124,19 @@ public partial class LauncherPlatform : Area2D
 
 	private void OnBodyExited(Node2D body)
 	{
-		if (body.IsInGroup("Player"))
+		if (!body.IsInGroup("Player"))
 		{
-			PlayerController.Instance.SetIsJumpBlocked(false);
-			
-			if (!_isLaunching)
-			{
-				animatedSprite2D.Play("retract");				
-			}
+			return;
+		}
+		_playerInLauncher = false;
+		GD.Print("Player exited launcher");
+
+		PlayerController.Instance.SetIsJumpBlocked(false);
+		
+		if (_isLaunching)
+		{
+			_isLaunching = false;
+			animatedSprite2D.Play("retract");				
 		}
 	}
 }

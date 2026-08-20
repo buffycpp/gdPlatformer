@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hshp854yrcgk" path="res://Levels/Environment/Platforms/LauncherPlatform/LauncherPlatform.cs" id="1_lc1bj"]
 [ext_resource type="Texture2D" uid="uid://312w8jiamdpk" path="res://Art/LauncherPlatform.png" id="2_hcfpp"]
+[ext_resource type="Texture2D" uid="uid://i1bp4yuq07yf" path="res://Art/LauncherPlatformBase.png" id="3_hcfpp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdv6l"]
 atlas = ExtResource("2_hcfpp")
@@ -85,10 +86,28 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nv8ut"]
-size = Vector2(32, 5)
+size = Vector2(32, 8.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdv6l"]
 size = Vector2(32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcfpp"]
+atlas = ExtResource("3_hcfpp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a87eh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcfpp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hcfpp"]
+polygon = PackedVector2Array(-32, 32, 0, 32, 0, 48, -32, 48)
 
 [node name="LauncherPlatform" type="Area2D" unique_id=1220571788 node_paths=PackedStringArray("animatedSprite2D", "physicalBody")]
 script = ExtResource("1_lc1bj")
@@ -100,7 +119,7 @@ MaxExtension = 6.0
 sprite_frames = SubResource("SpriteFrames_f3smf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1038591830]
-position = Vector2(0, -2)
+position = Vector2(0, -3.75)
 shape = SubResource("RectangleShape2D_nv8ut")
 debug_color = Color(0.89260906, 0.08338515, 0.75626296, 0.41960785)
 
@@ -109,3 +128,10 @@ debug_color = Color(0.89260906, 0.08338515, 0.75626296, 0.41960785)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=1038062970]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_bdv6l")
+
+[node name="Base_AOCopy" type="AnimatedSprite2D" parent="." unique_id=1534902689 groups=["AOEntity"]]
+sprite_frames = SubResource("SpriteFrames_a87eh")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=2088550279]
+position = Vector2(16, -32)
+occluder = SubResource("OccluderPolygon2D_hcfpp")

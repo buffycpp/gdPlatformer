@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dg1rxvnkamxpr"]
 
-[ext_resource type="Script" uid="uid://bkldiyv7p2mg3" path="res://Levels/Environment/Props/Platforms/DynamicPlatform.cs" id="1_qvgrc"]
+[ext_resource type="Script" uid="uid://bkldiyv7p2mg3" path="res://Levels/Environment/Platforms/DynamicPlatform/DynamicPlatform.cs" id="1_qvgrc"]
 [ext_resource type="Texture2D" uid="uid://csct5itheub47" path="res://Art/noise1.tres" id="2_af6l2"]
 [ext_resource type="AudioStream" uid="uid://dbs6m0mtq45hb" path="res://Audio/Pop 31.wav" id="3_313h7"]
 [ext_resource type="AudioStream" uid="uid://0vnx4bs0usl0" path="res://Audio/SPACECRAFT_Glitch_12_Rhythmic_Noise_loop_mono.wav" id="4_313h7"]
@@ -12,7 +12,10 @@ size = Vector2(32, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvgrc"]
 size = Vector2(32, 5)
 
-[node name="DynamicPlatform" type="Area2D" unique_id=1630382645 node_paths=PackedStringArray("collisionShape2D", "sprite2D", "audioStreamPlayer2D")]
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_34ii7"]
+polygon = PackedVector2Array(-16, -8, 16, -8, 16, 8, -16, 8)
+
+[node name="DynamicPlatform" type="Area2D" unique_id=1630382645 node_paths=PackedStringArray("collisionShape2D", "sprite2D", "audioStreamPlayer2D") groups=["AOEntity"]]
 script = ExtResource("1_qvgrc")
 collisionShape2D = NodePath("Sprite2D/StaticBody2D/CollisionShape2D")
 sprite2D = NodePath("Sprite2D")
@@ -42,3 +45,6 @@ stream = ExtResource("4_313h7")
 volume_db = -5.0
 pitch_scale = 3.0
 bus = &"SFX"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1672475941]
+occluder = SubResource("OccluderPolygon2D_34ii7")

@@ -53,10 +53,10 @@ initial_velocity_min = 5.0
 initial_velocity_max = 300.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.79999995
-color = Color(4.0059752, 0, 0.19892484, 1)
+color = Color(4.0059924, 1.261011, 1.0386533, 1)
 alpha_curve = SubResource("CurveTexture_tetnq")
 
-[node name="Turret" type="Node2D" unique_id=303893585 node_paths=PackedStringArray("animatedSprite", "muzzleFlashParticles")]
+[node name="Turret" type="Node2D" unique_id=303893585 node_paths=PackedStringArray("animatedSprite", "muzzleFlashParticles") groups=["AOEntity"]]
 z_index = 101
 rotation = 1.5707964
 script = ExtResource("1_eo5tm")

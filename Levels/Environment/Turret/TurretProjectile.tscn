@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b8yoqiopfkb07" path="res://Levels/Environment/Turret/TurretProjectile.cs" id="1_2k8kr"]
 [ext_resource type="Shader" uid="uid://dox6043hc2mv4" path="res://Effects/TextureTint.gdshader" id="1_m5m3m"]
 [ext_resource type="Texture2D" uid="uid://bpf3f2chl2ck0" path="res://Art/1px-particle.png" id="2_2k8kr"]
+[ext_resource type="PackedScene" uid="uid://c2d2bwa2t43rl" path="res://Levels/Environment/Turret/TurretHitParticles.tscn" id="2_byihy"]
 [ext_resource type="Texture2D" uid="uid://bsicaama8oxhp" path="res://Art/laser.png" id="4_xfiu5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qhakg"]
@@ -20,6 +21,7 @@ z_index = 105
 collision_layer = 128
 script = ExtResource("1_2k8kr")
 Speed = 200.0
+HitParticlesScene = ExtResource("2_byihy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=472238369]
 visible = false
@@ -32,7 +34,17 @@ shape = SubResource("RectangleShape2D_m5m3m")
 [node name="Line2D" type="Line2D" parent="." unique_id=1499204176]
 material = SubResource("CanvasItemMaterial_xfiu5")
 rotation = 1.5707964
-points = PackedVector2Array(-3, 0, 3, 0)
-default_color = Color(1, 0, 0, 1)
+points = PackedVector2Array(-2, 0, 2, 0)
+width = 3.0
+default_color = Color(2.503, 0.286, 0.248, 1)
+texture = ExtResource("4_xfiu5")
+texture_mode = 2
+
+[node name="Line2D_Glow" type="Line2D" parent="." unique_id=1728119840]
+material = SubResource("CanvasItemMaterial_xfiu5")
+rotation = 1.5707964
+points = PackedVector2Array(-3.5, 0, 3.5, 0)
+width = 15.79
+default_color = Color(2.503, 0.286, 0.248, 0.35)
 texture = ExtResource("4_xfiu5")
 texture_mode = 2
